@@ -29,7 +29,7 @@ test('property loads without broken resources, overflow, or an eager film downlo
   expect(await page.locator('#property-film').getAttribute('src')).toBeNull();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   expect(await page.evaluate(() => performance.getEntriesByType('resource').reduce((sum, entry) => sum + entry.transferSize, 0))).toBeLessThan(600_000);
-  await expect(page.getByRole('link', { name: 'Schedule a private tour' })).toHaveAttribute('href', /redfin\.com\/CA\/Van-Nuys\/14127-Lemay/);
+  await expect(page.getByRole('button', { name: 'Schedule a private tour' })).toHaveAttribute('data-tour', '');
   expect(errors).toEqual([]);
   expect(failures).toEqual([]);
 });
@@ -95,4 +95,36 @@ test('the published film plays the real 30-second edit through its final shot', 
   expect(await video.evaluate((element) => [element.videoWidth, element.videoHeight])).toEqual([1280, 720]);
   await page.getByRole('button', { name: 'Close film' }).click();
   await expect.poll(() => video.evaluate((element) => element.paused)).toBe(true);
+});
+
+test('tour requests open accessibly and submit required details to the configured service', async ({ page }) => {
+  await page.goto('/');
+  const trigger = page.getByRole('button', { name: 'Schedule a private tour' });
+  await trigger.click();
+  const dialog = page.getByRole('dialog', { name: 'Your next chapter, in person.' });
+  await expect(dialog).toBeVisible();
+  await expect(page.locator('#tour-name')).toBeFocused();
+  await page.getByRole('button', { name: 'Request a private tour' }).click();
+  await expect(dialog).toBeVisible();
+  await page.getByLabel('Full name').fill('Test Visitor');
+  await page.getByLabel('Phone number').fill('+1 555 123 4567');
+  await page.getByLabel('Email address').fill('visitor@example.com');
+  await page.getByLabel('Preferred viewing date').fill('2000-01-01');
+  expect(await page.locator('#tour-date').evaluate(el => el.validity.rangeUnderflow)).toBe(true);
+  await page.getByLabel('Preferred viewing date').fill('2099-01-01');
+  let submitted;
+  await page.route('https://formsubmit.co/**', async route => {
+    submitted = new URLSearchParams(route.request().postData());
+    await route.fulfill({ contentType: 'text/html', body: '<p>Mock verification step</p>' });
+  });
+  await page.getByRole('button', { name: 'Request a private tour' }).click();
+  await expect(page.getByText('Mock verification step')).toBeVisible();
+  expect(submitted.get('email')).toBe('visitor@example.com');
+  expect(submitted.get('preferred_date')).toBe('2099-01-01');
+  await page.goto('/');
+  await trigger.click();
+  await page.keyboard.press('Escape');
+  await expect(dialog).not.toBeVisible();
+  await expect(trigger).toBeFocused();
+  await expect(page.locator('footer')).toHaveCount(0);
 });

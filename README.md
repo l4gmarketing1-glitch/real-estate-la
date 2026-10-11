@@ -1,6 +1,6 @@
 # 14127 Lemay — Los Angeles property presentation
 
-An English-language, responsive landing page for **14127 Lemay Street, Van Nuys, CA 91405**, offered at **$1,175,000**. The page uses the 26 supplied listing photographs, local fonts, a filterable photo gallery, keyboard/touch lightbox, CSS perspective effects, scroll transitions, and a mobile tour button. Tour links open the actual Redfin listing until direct agent contact details are supplied.
+An English-language, responsive landing page for **14127 Lemay Street, Van Nuys, CA 91405**, offered at **$1,175,000**. The page uses the 26 supplied listing photographs, local fonts, a filterable photo gallery, keyboard/touch lightbox, CSS perspective effects, scroll transitions, and a mobile tour button. Tour buttons open an accessible request dialog with name, phone, email and preferred date. Requests POST to FormSubmit for tropicagency.co@gmail.com. The recipient must activate FormSubmit using its first-request activation email before delivery works. Submission continues to FormSubmit verification; the site does not claim a confirmed booking or email delivery. Browser tests intercept submission and never send real leads.
 
 ## Develop and test
 

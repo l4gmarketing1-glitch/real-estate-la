@@ -253,3 +253,26 @@ fetch('./assets/media/manifest.json', { cache: 'no-cache' })
     else setTimeout(loadHero, 1800);
   })
   .catch(() => { /* The photographic page remains complete if media is unavailable. */ });
+
+// Dates are local to the property, not the visitor's time zone.
+const tourDialog = document.querySelector('#tour-dialog');
+const tourDate = document.querySelector('#tour-date');
+function updateTourDateMinimum() {
+  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit'
+  }).formatToParts(new Date()).map(({ type, value }) => [type, value]));
+  tourDate.min = `${parts.year}-${parts.month}-${parts.day}`;
+}
+for (const button of document.querySelectorAll('[data-tour]')) {
+  button.addEventListener('click', () => {
+    dialogOpener = button;
+    updateTourDateMinimum();
+    tourDialog.showModal();
+    document.body.classList.add('modal-open');
+    document.querySelector('#tour-name').focus({ preventScroll: true });
+  });
+}
+document.querySelector('#tour-form').addEventListener('submit', (event) => {
+  updateTourDateMinimum();
+  if (!event.currentTarget.reportValidity()) event.preventDefault();
+});
