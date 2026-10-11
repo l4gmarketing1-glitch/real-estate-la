@@ -4,8 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       endpoint:
-        description: 'Higgsfield model endpoint (for example, flux-pro/kontext/max/text-to-image)'
+        description: 'Higgsfield model endpoint ID'
         required: true
+        default: 'higgsfield-ai/soul/v2/standard'
         type: string
       input_json:
         description: 'JSON object with the parameters required by that model'

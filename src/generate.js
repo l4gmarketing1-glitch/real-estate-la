@@ -2,6 +2,8 @@
 import { readFile } from 'node:fs/promises';
 import { createGenerator } from './higgsfield.js';
 
+let selectedEndpoint;
+
 async function main() {
   const [file] = process.argv.slice(2);
   if (!file || process.argv.length !== 3) {
@@ -9,13 +11,18 @@ async function main() {
   }
 
   const request = JSON.parse(await readFile(file, 'utf8'));
+  selectedEndpoint = request.endpoint;
   const generate = createGenerator();
   const result = await generate(request);
   process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
-  if (result.isFailed || result.isNsfw) process.exitCode = 1;
+  if (['failed', 'nsfw', 'canceled'].includes(result.status)) process.exitCode = 1;
 }
 
 main().catch((error) => {
-  console.error(error.message);
+  if (error.response?.status === 404) {
+    console.error(`Higgsfield returned HTTP 404 for endpoint "${selectedEndpoint}". Check the endpoint ID in that model's current API documentation.`);
+  } else {
+    console.error(error.message);
+  }
   process.exitCode = 1;
 });

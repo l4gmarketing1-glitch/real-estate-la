@@ -10,7 +10,7 @@ Create a request file such as `request.local.json`:
 
 ```json
 {
-  "endpoint": "flux-pro/kontext/max/text-to-image",
+  "endpoint": "higgsfield-ai/soul/v2/standard",
   "input": {
     "prompt": "Modern Los Angeles home at sunset",
     "aspect_ratio": "9:16"
@@ -20,7 +20,7 @@ Create a request file such as `request.local.json`:
 
 Run `npm run generate -- request.local.json`. The command waits for completion and prints the SDK result as JSON. It exits with an error for failed or moderated jobs. Request files ending in `.local.json` are ignored by Git.
 
-To use another model, change `endpoint` and provide that model's required `input` fields. For example, image-to-video models may need image URLs and a model variant. Find endpoint names and accepted fields in the [Higgsfield model documentation](https://docs.higgsfield.ai/). A different model may return a video instead of an image; inspect the returned `jobs[].results` accordingly. Set `withPolling` to `false` in the request when you want the queued job response immediately.
+To use another model, change `endpoint` and provide that model's required `input` fields. For example, `kling-video/v3.0-turbo/text-to-video` accepts a `prompt`, while `kling-video/v3.0-turbo/image-to-video` also requires a public `image_url`. Find current endpoint IDs and accepted fields in the [Higgsfield model documentation](https://docs.higgsfield.ai/docs/models.md). Completed image requests return `images`; completed video requests return `video`. Set `withPolling` to `false` in the request when you want the queued job response immediately.
 
 Run `npm test` for the local integration test. Live generation needs valid credentials and may consume credits.
 
