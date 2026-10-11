@@ -1,0 +1,8 @@
+{
+  "provider": "Higgsfield",
+  "model": "Seedance 2.5",
+  "endpoint": "bytedance/seedance-2.5/reference-to-video",
+  "state": "failed",
+  "requestId": "0780780a-5c3a-4a39-b8cf-c403f29bd8d9",
+  "error": "Your credit balance is too low to complete this request. Please top up your balance and try again."
+}
