@@ -6,12 +6,12 @@ on:
       endpoint:
         description: 'Higgsfield model endpoint ID'
         required: true
-        default: 'higgsfield-ai/soul/v2/standard'
+        default: 'bytedance/seedance-2.5/text-to-video'
         type: string
       input_json:
         description: 'JSON object with the parameters required by that model'
         required: true
-        default: '{"prompt":"Modern Los Angeles home at sunset","aspect_ratio":"9:16"}'
+        default: '{"prompt":"A cinematic tracking shot of a modern Los Angeles home at sunset.","duration":5,"aspect_ratio":"16:9"}'
         type: string
 
 jobs:

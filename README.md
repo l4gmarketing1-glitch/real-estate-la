@@ -10,17 +10,18 @@ Create a request file such as `request.local.json`:
 
 ```json
 {
-  "endpoint": "higgsfield-ai/soul/v2/standard",
+  "endpoint": "bytedance/seedance-2.5/text-to-video",
   "input": {
-    "prompt": "Modern Los Angeles home at sunset",
-    "aspect_ratio": "9:16"
+    "prompt": "A cinematic tracking shot of a modern Los Angeles home at sunset.",
+    "duration": 5,
+    "aspect_ratio": "16:9"
   }
 }
 ```
 
 Run `npm run generate -- request.local.json`. The command waits for completion and prints the SDK result as JSON. It exits with an error for failed or moderated jobs. Request files ending in `.local.json` are ignored by Git.
 
-To use another model, change `endpoint` and provide that model's required `input` fields. For example, `kling-video/v3.0-turbo/text-to-video` accepts a `prompt`, while `kling-video/v3.0-turbo/image-to-video` also requires a public `image_url`. Find current endpoint IDs and accepted fields in the [Higgsfield model documentation](https://docs.higgsfield.ai/docs/models.md). Completed image requests return `images`; completed video requests return `video`. Set `withPolling` to `false` in the request when you want the queued job response immediately.
+To use another model, change `endpoint` and provide that model's required `input` fields. Your API account must have access to that model. Seedance 2.5 also supports `bytedance/seedance-2.5/image-to-video`, which requires a public image URL. An image model such as `higgsfield-ai/soul/v2/standard` requires separate access. Find current endpoint IDs and accepted fields in the [Higgsfield model documentation](https://docs.higgsfield.ai/docs/models.md). Completed image requests return `images`; completed video requests return `video`. Set `withPolling` to `false` in the request when you want the queued job response immediately.
 
 Run `npm test` for the local integration test. Live generation needs valid credentials and may consume credits.
 
