@@ -1,0 +1,9 @@
+{
+  "ready": true,
+  "duration": 20,
+  "film": "film.mp4",
+  "hero": "hero.mp4",
+  "mobileHero": "hero-mobile.mp4",
+  "provider": "Higgsfield",
+  "model": "Seedance 2.5"
+}
