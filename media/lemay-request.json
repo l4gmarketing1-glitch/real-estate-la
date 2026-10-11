@@ -1,0 +1,12 @@
+{
+  "endpoint": "bytedance/seedance-2.5/reference-to-video",
+  "references": ["front.jpg", "living.jpg", "kitchen.jpg", "twilight.jpg"],
+  "input": {
+    "duration": 20,
+    "resolution": "1080p",
+    "aspect_ratio": "16:9",
+    "generate_audio": true,
+    "bitrate_mode": "high",
+    "prompt": "Create a refined 20-second real estate presentation of the EXACT home in the four ordered reference photographs: 14127 Lemay Street, Van Nuys, a 1927 Craftsman cottage with Tudor Revival details. Four distinct five-second scenes with tasteful clean cuts: seconds 0-5, reference 1, a very slow stabilized push toward the actual front facade beneath its mature shade tree; seconds 5-10, reference 2, a subtle lateral glide across the actual empty living room, original hardwood floor, fireplace and arched window; seconds 10-15, reference 3, a restrained slow push into the actual renovated green-cabinet kitchen; seconds 15-20, reference 4, a gentle pull back from the actual exterior at twilight. Preserve the exact architecture, room layout, windows, doors, roofline, finishes, landscaping and proportions in each source photograph. This is a faithful presentation of an existing for-sale property. Do not add furniture, people, a swimming pool, extra rooms, mountains or luxury features. No morphing between rooms and no imagined walk-through connecting them. Smooth deliberate camera motion, natural light, warm and understated editorial color, realistic materials. Keep the house recognizable. Soft tasteful instrumental piano with light ambient texture, no narration, no voices, no text, no captions, no logos, no graphics. Exactly 20 seconds."
+  }
+}
