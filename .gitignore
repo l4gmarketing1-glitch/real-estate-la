@@ -3,3 +3,4 @@ node_modules/
 *.local.json
 playwright-report/
 test-results/
+__pycache__/

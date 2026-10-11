@@ -241,7 +241,7 @@ for (const button of document.querySelectorAll('[data-film]')) {
   });
 }
 filmDialog.addEventListener('close', () => filmPlayer.pause());
-fetch('./assets/media/manifest.json')
+fetch('./assets/media/manifest.json', { cache: 'no-cache' })
   .then((response) => response.ok ? response.json() : null)
   .then((manifest) => {
     if (!manifest?.ready || !['film', 'hero', 'mobileHero'].every((field) => /^[a-z0-9-]+\.mp4$/.test(manifest[field]))) return;

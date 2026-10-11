@@ -32,16 +32,17 @@ jobs:
         run: |
           if [ ! -f /tmp/lemay-source.mp4 ]; then exit 0; fi
           sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg
-          ffmpeg -y -i /tmp/lemay-source.mp4 -t 20 -vf 'scale=1280:-2,fps=24' -c:v libx264 -preset slow -crf 23 -c:a aac -b:a 96k -movflags +faststart -map_metadata -1 site/assets/media/film.mp4
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          mkdir -p media/source
+          ffmpeg -y -i /tmp/lemay-source.mp4 -t 20 -vf 'scale=1280:-2,fps=24' -c:v libx264 -preset slow -crf 23 -c:a aac -b:a 96k -movflags +faststart -map_metadata -1 media/source/seedance-property-20s.mp4
           ffmpeg -y -i /tmp/lemay-source.mp4 -t 4.5 -an -vf 'scale=1280:-2,fps=24' -c:v libx264 -preset slow -crf 27 -g 6 -keyint_min 6 -sc_threshold 0 -movflags +faststart -map_metadata -1 site/assets/media/hero.mp4
           ffmpeg -y -i /tmp/lemay-source.mp4 -t 4.5 -an -vf 'scale=768:-2,fps=24' -c:v libx264 -preset slow -crf 29 -g 6 -keyint_min 6 -sc_threshold 0 -movflags +faststart -map_metadata -1 site/assets/media/hero-mobile.mp4
-          ffprobe -v error -show_entries format=duration -of json site/assets/media/film.mp4 > /tmp/lemay-duration.json
+          python3 scripts/edit-property-film.py
+          ffprobe -v error -show_entries format=duration -of json site/assets/media/film-30s.mp4 > /tmp/lemay-duration.json
           node --input-type=module -e '
-            import { readFile, writeFile } from "node:fs/promises";
+            import { readFile } from "node:fs/promises";
             const duration = Number(JSON.parse(await readFile("/tmp/lemay-duration.json", "utf8")).format.duration);
-            if (Math.abs(duration - 20) > 0.5) throw new Error("Unexpected film duration");
-            await writeFile("site/assets/media/manifest.json", JSON.stringify({ready:true, duration, film:"film.mp4", hero:"hero.mp4", mobileHero:"hero-mobile.mp4", provider:"Higgsfield", model:"Seedance 2.5"}, null, 2));
+            if (Math.abs(duration - 30) > 0.05) throw new Error("Unexpected film duration");
           '
       - name: Save media for review
         if: always()
@@ -49,7 +50,7 @@ jobs:
           if [ -d site/assets/media ]; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add site/assets/media
+            git add site/assets/media media/source media/film-30s-storyboard.json
             if ! git diff --cached --quiet; then
               git commit -m 'Save generated Lemay property film for review'
               git push origin "HEAD:refs/heads/generated/lemay-film-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"

@@ -30,26 +30,32 @@ Browser tests cover desktop and mobile: listing content, resource errors, initia
 - Reduced-motion preferences disable the scrolling animation. Data Saver and slow 2G connections retain the photograph instead of automatically fetching the hero video.
 - The supplied listing gives two slightly different lot sizes; the page uses its structured value of 7,498 sq ft. Verify current listing facts and availability before publication.
 
-The requested host is **GPT Sites**, with the custom domain **`vila4.l4g.ro`** and DNS managed at **Romarg**. Canonical and social-preview metadata use this intended domain. Hosting and DNS have not yet been configured. See [DEPLOYMENT.md](DEPLOYMENT.md) for the deployment handoff.
+The current publication is **GitHub Pages** at **`vila4.l4g.ro`**, with DNS managed at **Romarg**. The root entry redirects to the actual page under `site/`. The earlier GPT Sites hosting request remains a separate migration; see [DEPLOYMENT.md](DEPLOYMENT.md) for current deployment details.
 
 Publish the **`site/` directory** as static files. The host should serve MP4 files with byte-range support and enable compression for HTML/CSS/JS. Configure cache lifetimes and asset versioning together; the current assets have readable, unversioned filenames. Publishing repository code does not itself deploy the website.
 
 ## Property film — Higgsfield Seedance 2.5 only
 
-`media/lemay-request.json` defines the actual property film: 20 seconds, 720p, 16:9, four ordered photographs, restrained camera movement and instrumental audio. It uses `bytedance/seedance-2.5/reference-to-video`. The original reference images are in `media/references/`; the workflow supplies public HTTPS URLs pinned to the exact source commit. No other generation provider or model is used.
+`media/lemay-request.json` defines the original generated source footage: 20 seconds, 720p, 16:9, four ordered photographs, restrained camera movement and instrumental audio. It uses `bytedance/seedance-2.5/reference-to-video`. The original reference images are in `media/references/`; the workflow supplies public HTTPS URLs pinned to the exact source commit. No other generation provider or model is used.
 
 Add **`HF_CREDENTIALS`** as a GitHub Actions repository secret, containing the official SDK's `KEY_ID:KEY_SECRET` credential pair. Never add it to website files or commit it. Repository secrets are available in Actions, not automatically in the local/cloud development shell.
 
 1. Run **Actions → Estimate Lemay film cost** for an authenticated estimate without generating media. It saves `cost-estimate.json` as an artifact and on a `generated/lemay-estimate-*` review branch.
 2. Run **Actions → Create Lemay property film** to submit a paid generation. A push changing `media/film-generation-trigger.txt` on `main` also triggers it. Ordinary website or request-file edits do not submit paid generations.
-3. On success, the workflow downloads the output and uses FFmpeg to prepare the 20-second presentation plus 4.5-second desktop/mobile scrolling clips. It checks the film duration and writes `manifest.json` with `ready: true`.
+3. On success, the workflow downloads the output and uses FFmpeg to prepare the 30-second edited presentation plus 4.5-second desktop/mobile scrolling clips. It checks the film duration and writes `manifest.json` with `ready: true`.
 4. Download the `lemay-property-film` artifact or inspect the `generated/lemay-film-<run>-<attempt>` branch. Review the generated film against the reference photographs before copying its `site/assets/media/` files to `main` and deploying. Review branches are not published automatically.
 
 The film controls and hero video activate only when `site/assets/media/manifest.json` says `ready: true`. Set `ready: false` to use the photographic fallback when generated media is unavailable. Failed jobs save `generation-status.json`; a green **Test** run validates the code and does not prove that a film was generated.
 
 If Higgsfield reports insufficient credits, check the balance in [Higgsfield Console](https://console.higgsfield.ai) for the account associated with the stored API key. According to [Higgsfield billing documentation](https://docs.higgsfield.ai/docs/concepts/billing-and-retention), failed generations are not charged and reserved credits are refunded. Do not repeatedly submit the same failed job without resolving its cause.
 
-The reviewed Seedance film and both hero clips are included in `site/assets/media/`. The presentation is 20 seconds at 1280 × 720 with AAC audio; the scrolling clips contain only the opening exterior scene and have no audio. `generation-status.json` records the provider and request identifier.
+The reviewed Seedance film and both hero clips are included in `site/assets/media/`. The presentation is 30 seconds at 1280 × 720 with AAC audio, with exactly 15 shots of 2 seconds and English property details; the scrolling clips contain only the opening exterior scene and have no audio. `generation-status.json` records the provider and request identifier.
+
+### Rebuild the edit without spending API credits
+
+Run `python3 scripts/edit-property-film.py` with FFmpeg/libass and DejaVu fonts installed. The script reuses `media/source/seedance-property-20s.mp4`, the supplied listing photographs, and the source soundtrack. It performs no API calls. `media/film-30s-storyboard.json` records all 15 shots, their two-second durations, and the property captions. The primary result is `site/assets/media/film-30s.mp4`; `film.mp4` is a compatibility copy for previously shared links.
+
+The root `index.html` redirects to `site/` for hosting configurations that publish the entire repository. This prevents the project README from appearing instead of the property page. `.nojekyll` ensures GitHub Pages can serve the static files directly. Hosts configured to publish `site/` continue to serve it directly.
 
 ## Flexible SDK integration
 

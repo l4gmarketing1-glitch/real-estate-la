@@ -1,23 +1,24 @@
-# GPT Sites deployment handoff
+# Deployment: vila4.l4g.ro
 
-The user requests hosting on GPT Sites and the custom domain `vila4.l4g.ro`, with DNS managed at Romarg. Their existing GPT Sites example is `vila3.l4g.ro`. Do not replace or change that existing site.
+The current deployment is **GitHub Pages**, from `main`, with `vila4.l4g.ro` in the root `CNAME` file. The user manages DNS at Romarg. Preserve the existing domain configuration and the separate `vila3.l4g.ro` site.
 
-## Ready to deploy
+## Entry point
 
-- Repository: `https://github.com/l4gmarketing1-glitch/real-estate-la`, branch `main`.
-- Static publish directory: `site/`; entry point: `site/index.html`.
-- No build step or browser-side credentials are required.
-- The real 20-second Seedance 2.5 film and desktop/mobile hero clips are already committed under `site/assets/media/`. Do not regenerate them during deployment.
-- Serve `.js` as JavaScript, `.mp4` as `video/mp4`, and support HTTP byte-range requests for video seeking.
-- If the platform requires a running server instead of a static directory, `npm run dev` serves the site on `PORT` (default 4173). Use the platform's documented production deployment mechanism.
+The public repository root previously displayed the project README because it had no `index.html`. The root entry now redirects to `./site/`, preserving query strings and anchor links. `.nojekyll` enables direct static-file serving. The actual landing page is `site/index.html`.
 
-## Pending platform operations
+- Main URL: `https://vila4.l4g.ro/`
+- Direct page URL: `https://vila4.l4g.ro/site/`
+- Current film: `https://vila4.l4g.ro/site/assets/media/film-30s.mp4`
+- Publish changes by pushing to `main`, then verify the GitHub **pages build and deployment** workflow and **Test** workflow.
 
-1. Use the GPT Sites publishing integration to create a new site from this repository's static directory.
-2. Verify the provider-assigned public URL, all images, video playback and scroll seeking on desktop and mobile.
-3. Associate `vila4.l4g.ro` with the new site using the platform's custom-domain process.
-4. Obtain the exact DNS records and any verification token from the platform. No DNS target or token is known yet; do not invent them or assume the target used by `vila3` belongs to the new site.
-5. Add only the required records at the authoritative DNS provider, expected to be Romarg. Verify the authoritative nameservers before applying changes. Preserve unrelated records, including mail and `vila3`.
-6. Verify DNS resolution, HTTPS certificate provisioning and the complete website at `https://vila4.l4g.ro/`.
+## Static assets and video
 
-Publishing and DNS changes remain pending because this conversation exposes cloud-environment and GitHub access but no GPT Sites publishing or domain-management tools. The existing site's HTTPS inspection was also blocked by the environment's network policy. This is not evidence that the existing site is unavailable.
+The `site/` directory requires no build step or browser-side credentials. It includes the edited 30-second film (15 shots of exactly 2 seconds), original photographs and separate desktop/mobile hero clips. The edit reuses existing Seedance 2.5 footage and costs no new API credits. Do not regenerate footage during deployment.
+
+MP4 hosting must support byte-range requests and the `video/mp4` MIME type. The local `npm run dev` server supports these. The browser test suite checks the real 30-second video and seeks through its final shot on desktop and mobile.
+
+## Earlier GPT Sites request
+
+The user originally requested GPT Sites hosting. This session has no GPT Sites publishing or domain-management tools. The existing GitHub Pages publication was repaired in place; this is not a migration to GPT Sites. If migrating later, publish the `site/` directory directly, update the social-preview image URL to match the new public path, and obtain the exact DNS/verification records from GPT Sites before changing Romarg DNS.
+
+Direct HTTPS inspection of the custom domain is blocked by this development environment's network policy. GitHub deployment status and local browser tests can be checked here; a live-domain browser check must be made from an environment with access.

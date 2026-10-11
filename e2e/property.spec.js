@@ -5,7 +5,7 @@ import { statSync } from 'node:fs';
 const fixture = fileURLToPath(new URL('./fixtures/scroll-test.mp4', import.meta.url));
 async function mockPreparedFilm(page) {
   await page.route('**/assets/media/manifest.json', (route) => route.fulfill({
-    json: { ready: true, duration: 20, film: 'film.mp4', hero: 'hero.mp4', mobileHero: 'hero-mobile.mp4' },
+    json: { ready: true, duration: 30, film: 'film-30s.mp4', hero: 'hero.mp4', mobileHero: 'hero-mobile.mp4' },
   }));
   await page.route('**/assets/media/*.mp4', (route) => route.fulfill({
     path: fixture,
@@ -82,4 +82,17 @@ test('prepared video scrubs on scroll and the film opens with playback controls'
   await expect(page.locator('#property-film')).toHaveAttribute('controls', '');
   await page.getByRole('button', { name: 'Close film' }).click();
   await expect.poll(() => page.locator('#property-film').evaluate((video) => video.paused)).toBe(true);
+});
+
+test('the published film plays the real 30-second edit through its final shot', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('.hero-bottom [data-film]').click();
+  const video = page.locator('#property-film');
+  await expect(video).toHaveAttribute('src', './assets/media/film-30s.mp4');
+  await expect.poll(() => video.evaluate((element) => element.duration)).toBe(30);
+  await video.evaluate((element) => { element.pause(); element.currentTime = 29; });
+  await expect.poll(() => video.evaluate((element) => !element.seeking && element.readyState >= 2)).toBe(true);
+  expect(await video.evaluate((element) => [element.videoWidth, element.videoHeight])).toEqual([1280, 720]);
+  await page.getByRole('button', { name: 'Close film' }).click();
+  await expect.poll(() => video.evaluate((element) => element.paused)).toBe(true);
 });

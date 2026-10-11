@@ -1,0 +1,174 @@
+{
+  "duration": 30,
+  "fps": 24,
+  "shots": [
+    {
+      "source": "video",
+      "sourceStart": 0,
+      "duration": 2
+    },
+    {
+      "source": "facade",
+      "sourceStart": 0,
+      "duration": 2
+    },
+    {
+      "source": "video",
+      "sourceStart": 5.1,
+      "duration": 2
+    },
+    {
+      "source": "dining",
+      "sourceStart": 0,
+      "duration": 2
+    },
+    {
+      "source": "video",
+      "sourceStart": 10,
+      "duration": 2
+    },
+    {
+      "source": "bedroom",
+      "sourceStart": 0,
+      "duration": 2
+    },
+    {
+      "source": "bedroom-two",
+      "sourceStart": 0,
+      "duration": 2
+    },
+    {
+      "source": "bedroom-three",
+      "sourceStart": 0,
+      "duration": 2
+    },
+    {
+      "source": "bath",
+      "sourceStart": 0,
+      "duration": 2
+    },
+    {
+      "source": "bath-two",
+      "sourceStart": 0,
+      "duration": 2
+    },
+    {
+      "source": "sunroom-wide",
+      "sourceStart": 0,
+      "duration": 2
+    },
+    {
+      "source": "basement",
+      "sourceStart": 0,
+      "duration": 2
+    },
+    {
+      "source": "garden",
+      "sourceStart": 0,
+      "duration": 2
+    },
+    {
+      "source": "garage",
+      "sourceStart": 0,
+      "duration": 2
+    },
+    {
+      "source": "video",
+      "sourceStart": 17,
+      "duration": 2
+    }
+  ],
+  "cards": [
+    {
+      "start": 0,
+      "end": 2,
+      "title": "A Los Angeles original",
+      "detail": "Single-family home | 1927 Craftsman with Tudor Revival details"
+    },
+    {
+      "start": 2,
+      "end": 4,
+      "title": "Historic character",
+      "detail": "HPOZ contributing home | Curved gable & angled bay"
+    },
+    {
+      "start": 4,
+      "end": 6,
+      "title": "Restored original hardwood",
+      "detail": "Arched window | Fresh paint inside and out"
+    },
+    {
+      "start": 6,
+      "end": 8,
+      "title": "Room to gather",
+      "detail": "New roof | New plumbing"
+    },
+    {
+      "start": 8,
+      "end": 10,
+      "title": "Brand-new kitchen",
+      "detail": "New appliances | Thoughtfully updated"
+    },
+    {
+      "start": 10,
+      "end": 12,
+      "title": "Three bedrooms",
+      "detail": "1,981 sq ft | Space for your next chapter"
+    },
+    {
+      "start": 12,
+      "end": 14,
+      "title": "Room to make your own",
+      "detail": "1927 craftsmanship, preserved"
+    },
+    {
+      "start": 14,
+      "end": 16,
+      "title": "A fresh start",
+      "detail": "Move-in ready, with major systems upgraded"
+    },
+    {
+      "start": 16,
+      "end": 18,
+      "title": "Two bathrooms",
+      "detail": "Everyday comfort in a historic home"
+    },
+    {
+      "start": 18,
+      "end": 20,
+      "title": "Beautifully refreshed",
+      "detail": "Original character. Modern updates."
+    },
+    {
+      "start": 20,
+      "end": 22,
+      "title": "Follow the sunlight",
+      "detail": "Enclosed porch | Space to unwind"
+    },
+    {
+      "start": 22,
+      "end": 24,
+      "title": "Fully renovated basement",
+      "detail": "Flexible additional space"
+    },
+    {
+      "start": 24,
+      "end": 26,
+      "title": "7,498 sq ft lot",
+      "detail": "Mature shade tree | Sweeping front lawn"
+    },
+    {
+      "start": 26,
+      "end": 28,
+      "title": "Detached 2-car garage",
+      "detail": "Gated driveway | Secure parking & extra storage"
+    },
+    {
+      "start": 28,
+      "end": 30,
+      "title": "Your next chapter starts here",
+      "detail": "Near dining, parks & shopping | San Fernando Valley"
+    }
+  ],
+  "source": "Existing Seedance 2.5 footage and supplied listing photographs; no new generation"
+}
