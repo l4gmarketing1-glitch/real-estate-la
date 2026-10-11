@@ -1,5 +1,13 @@
 # real-estate-la
 
+## Property landing page
+
+The responsive landing page lives in `site/`. To preview it locally, run `python3 -m http.server 4173 --directory site` from the repository root, then open `http://localhost:4173/`.
+
+Edit `site/property.js` to replace the concept listing with verified property details. Set `isDemo` to `false` only after replacing the sample price, measurements, descriptions, and illustrative images in `site/assets/`. Add `agentEmail` to enable the inquiry form; it opens the visitor's email app with a prepared message. The site has no server-side lead storage. Hosting can serve the `site/` directory as static files.
+
+## Higgsfield generation
+
 Server-side Higgsfield generation using the official Node.js SDK. The model endpoint and its parameters live in a request file, so switching models does not require a code change.
 
 ## Setup

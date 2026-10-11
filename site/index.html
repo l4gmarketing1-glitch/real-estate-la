@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#18231e" />
+    <meta name="description" content="Explore a Los Angeles property, its features, and private tour information." />
+    <title>Los Angeles Residence | Property Preview</title>
+    <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="demo-banner" id="demo-banner">Concept listing · Illustrative details and imagery</div>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="The residence, back to top">
+        <span class="brand-mark" aria-hidden="true">A<span>—</span></span>
+        <span class="brand-name">ATELIER<br /><small>LOS ANGELES</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-links"><span></span><span></span></button>
+      <nav id="nav-links" class="nav-links" aria-label="Primary navigation">
+        <a href="#residence">The residence</a>
+        <a href="#details">Details</a>
+        <a href="#neighborhood">Neighborhood</a>
+        <a class="nav-cta" href="#inquire">Inquire <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-heading">
+        <div class="hero-copy">
+          <div class="hero-copy-inner">
+            <p class="eyebrow light">An address above it all <span class="eyebrow-line"></span> Los Angeles</p>
+            <h1 id="hero-heading" data-field="headline">A quieter kind of Los Angeles.</h1>
+            <p class="hero-intro" data-field="description"></p>
+            <div class="hero-actions">
+              <a class="button button-light" href="#residence">Explore the residence <span aria-hidden="true">↗</span></a>
+              <span class="hero-note">Private presentation</span>
+            </div>
+          </div>
+          <div class="hero-bottom"><span data-field="neighborhood"></span><span>01 / 03</span></div>
+        </div>
+        <div class="hero-art" role="img" aria-label="Architectural illustration of a modern hillside residence at sunset">
+          <img src="./assets/exterior.svg" alt="Illustration of a modern Los Angeles residence at sunset" />
+          <span class="image-caption">An elevated point of view <span>↗</span></span>
+        </div>
+      </section>
+
+      <section class="quick-facts" aria-label="Property facts">
+        <div class="fact"><span class="fact-label">Offered at</span><strong data-field="price"></strong></div>
+        <div class="fact"><span class="fact-label">Bedrooms</span><strong data-field="beds"></strong></div>
+        <div class="fact"><span class="fact-label">Bathrooms</span><strong data-field="baths"></strong></div>
+        <div class="fact"><span class="fact-label">Interior</span><strong><span data-field="area"></span> <small data-field="areaUnit"></small></strong></div>
+      </section>
+
+      <section class="intro section-shell" id="residence">
+        <div class="section-kicker"><span class="kicker-dot"></span> THE RESIDENCE <span>01 / 04</span></div>
+        <div class="intro-grid">
+          <h2>Beautifully considered.<br /><em>Effortlessly lived in.</em></h2>
+          <div class="intro-aside"><p>From the first light of morning to the city glow after dark, every space is designed to feel connected to its surroundings.</p><a class="text-link" href="#details">Discover the details <span aria-hidden="true">↗</span></a></div>
+        </div>
+        <div class="editorial-image"><img src="./assets/interior.svg" alt="Illustration of an airy living room opening toward the hills" loading="lazy" /><span>Living, reimagined for the California light.</span></div>
+      </section>
+
+      <section class="details section-shell" id="details">
+        <div class="section-kicker"><span class="kicker-dot"></span> THE DETAILS <span>02 / 04</span></div>
+        <div class="details-grid">
+          <div><p class="overline">AT A GLANCE</p><h2>The art of<br /><em>feeling at home.</em></h2><p class="details-lead">Spaces made for a life that moves between quiet moments and lively company.</p></div>
+          <div class="highlights" id="highlights"></div>
+        </div>
+        <div class="gallery-grid">
+          <figure><img src="./assets/pool.svg" alt="Illustration of a terrace and pool overlooking the hills" loading="lazy" /><figcaption>The outside, brought in.</figcaption></figure>
+          <figure><img src="./assets/interior.svg" alt="Illustration of the living space" loading="lazy" /><figcaption>Space for every moment.</figcaption></figure>
+        </div>
+      </section>
+
+      <section class="neighborhood" id="neighborhood">
+        <div class="neighborhood-copy"><div class="section-kicker"><span class="kicker-dot"></span> THE NEIGHBORHOOD <span>03 / 04</span></div><p class="overline">LOS ANGELES LIVING</p><h2>Close to everything.<br /><em>Away from it all.</em></h2><p>Discover a more relaxed pace above the energy of Los Angeles, with dining, culture, and city life within reach.</p><div class="location-line"><span class="location-icon" aria-hidden="true">✦</span><span data-field="city"></span></div></div>
+        <div class="neighborhood-art" aria-hidden="true"><div class="sun"></div><div class="hill hill-back"></div><div class="hill hill-front"></div><div class="street"></div><span>LOS ANGELES<br />CALIFORNIA</span></div>
+      </section>
+
+      <section class="inquire section-shell" id="inquire">
+        <div class="section-kicker"><span class="kicker-dot"></span> PRIVATE INQUIRIES <span>04 / 04</span></div>
+        <div class="inquire-grid"><div><p class="overline">LET'S CONNECT</p><h2>Make room for<br /><em>what's next.</em></h2><p>Request more information or arrange a private conversation about this home.</p><div class="advisor"><span class="advisor-icon" aria-hidden="true">A—</span><span><strong data-field="agentName"></strong><small>Property inquiries</small></span></div></div>
+          <form id="inquiry-form" class="inquiry-form"><label for="inquiry-name">Your name</label><input id="inquiry-name" name="name" type="text" autocomplete="name" required placeholder="Full name" /><label for="inquiry-email">Email address</label><input id="inquiry-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" /><label for="inquiry-message">Your message</label><textarea id="inquiry-message" name="message" rows="3" required placeholder="I'd love to know more about this property..."></textarea><button class="button button-dark" type="submit">Send inquiry <span aria-hidden="true">↗</span></button><p class="form-note" id="form-note" role="status">Your email app will open with your message.</p></form>
+        </div>
+      </section>
+    </main>
+    <footer><div class="footer-top"><span class="footer-brand">ATELIER <span>—</span> LOS ANGELES</span><a href="#top">Back to top ↑</a></div><div class="footer-bottom"><span data-field="address"></span><span id="footer-disclaimer">Concept listing. All details and illustrations are placeholders.</span><span>© <span id="year"></span></span></div></footer>
+  </body>
+</html>
