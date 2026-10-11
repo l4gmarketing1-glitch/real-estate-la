@@ -231,7 +231,10 @@ for (const button of document.querySelectorAll('[data-film]')) {
   button.addEventListener('click', () => {
     if (!mediaManifest?.ready) return;
     dialogOpener = button;
-    if (!filmPlayer.getAttribute('src')) filmPlayer.src = `./assets/media/${mediaManifest.film}`;
+    if (!filmPlayer.getAttribute('src')) {
+      filmPlayer.poster = filmPlayer.dataset.poster;
+      filmPlayer.src = `./assets/media/${mediaManifest.film}`;
+    }
     filmDialog.showModal();
     document.body.classList.add('modal-open');
     filmPlayer.play().catch(() => { /* Native controls remain available if autoplay is restricted. */ });
