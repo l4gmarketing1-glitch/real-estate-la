@@ -34,8 +34,8 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg
           ffmpeg -y -i /tmp/lemay-source.mp4 -t 20 -vf 'scale=1280:-2,fps=24' -c:v libx264 -preset slow -crf 23 -c:a aac -b:a 96k -movflags +faststart -map_metadata -1 site/assets/media/film.mp4
-          ffmpeg -y -i /tmp/lemay-source.mp4 -t 5 -an -vf 'scale=1280:-2,fps=24' -c:v libx264 -preset slow -crf 27 -g 6 -keyint_min 6 -sc_threshold 0 -movflags +faststart -map_metadata -1 site/assets/media/hero.mp4
-          ffmpeg -y -i /tmp/lemay-source.mp4 -t 5 -an -vf 'scale=768:-2,fps=24' -c:v libx264 -preset slow -crf 29 -g 6 -keyint_min 6 -sc_threshold 0 -movflags +faststart -map_metadata -1 site/assets/media/hero-mobile.mp4
+          ffmpeg -y -i /tmp/lemay-source.mp4 -t 4.5 -an -vf 'scale=1280:-2,fps=24' -c:v libx264 -preset slow -crf 27 -g 6 -keyint_min 6 -sc_threshold 0 -movflags +faststart -map_metadata -1 site/assets/media/hero.mp4
+          ffmpeg -y -i /tmp/lemay-source.mp4 -t 4.5 -an -vf 'scale=768:-2,fps=24' -c:v libx264 -preset slow -crf 29 -g 6 -keyint_min 6 -sc_threshold 0 -movflags +faststart -map_metadata -1 site/assets/media/hero-mobile.mp4
           ffprobe -v error -show_entries format=duration -of json site/assets/media/film.mp4 > /tmp/lemay-duration.json
           node --input-type=module -e '
             import { readFile, writeFile } from "node:fs/promises";

@@ -81,5 +81,5 @@ test('prepared video scrubs on scroll and the film opens with playback controls'
   await expect(page.locator('#film-dialog')).toBeVisible();
   await expect(page.locator('#property-film')).toHaveAttribute('controls', '');
   await page.getByRole('button', { name: 'Close film' }).click();
-  expect(await page.locator('#property-film').evaluate((video) => video.paused)).toBe(true);
+  await expect.poll(() => page.locator('#property-film').evaluate((video) => video.paused)).toBe(true);
 });

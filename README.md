@@ -40,12 +40,14 @@ Add **`HF_CREDENTIALS`** as a GitHub Actions repository secret, containing the o
 
 1. Run **Actions → Estimate Lemay film cost** for an authenticated estimate without generating media. It saves `cost-estimate.json` as an artifact and on a `generated/lemay-estimate-*` review branch.
 2. Run **Actions → Create Lemay property film** to submit a paid generation. A push changing `media/film-generation-trigger.txt` on `main` also triggers it. Ordinary website or request-file edits do not submit paid generations.
-3. On success, the workflow downloads the output and uses FFmpeg to prepare the 20-second presentation plus five-second desktop/mobile scrolling clips. It checks the film duration and writes `manifest.json` with `ready: true`.
+3. On success, the workflow downloads the output and uses FFmpeg to prepare the 20-second presentation plus 4.5-second desktop/mobile scrolling clips. It checks the film duration and writes `manifest.json` with `ready: true`.
 4. Download the `lemay-property-film` artifact or inspect the `generated/lemay-film-<run>-<attempt>` branch. Review the generated film against the reference photographs before copying its `site/assets/media/` files to `main` and deploying. Review branches are not published automatically.
 
-The film controls and hero video activate only when `site/assets/media/manifest.json` says `ready: true`. The checked-in photo-only state remains usable when generation fails. Failed jobs save `generation-status.json`; a green **Test** run validates the code and does not prove that a film was generated.
+The film controls and hero video activate only when `site/assets/media/manifest.json` says `ready: true`. Set `ready: false` to use the photographic fallback when generated media is unavailable. Failed jobs save `generation-status.json`; a green **Test** run validates the code and does not prove that a film was generated.
 
 If Higgsfield reports insufficient credits, check the balance in [Higgsfield Console](https://console.higgsfield.ai) for the account associated with the stored API key. According to [Higgsfield billing documentation](https://docs.higgsfield.ai/docs/concepts/billing-and-retention), failed generations are not charged and reserved credits are refunded. Do not repeatedly submit the same failed job without resolving its cause.
+
+The reviewed Seedance film and both hero clips are included in `site/assets/media/`. The presentation is 20 seconds at 1280 × 720 with AAC audio; the scrolling clips contain only the opening exterior scene and have no audio. `generation-status.json` records the provider and request identifier.
 
 ## Flexible SDK integration
 
