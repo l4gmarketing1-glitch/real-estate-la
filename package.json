@@ -1,0 +1,16 @@
+{
+  "name": "real-estate-la",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node src/generate.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@higgsfield/client": "^0.2.6"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
