@@ -30,7 +30,9 @@ Browser tests cover desktop and mobile: listing content, resource errors, initia
 - Reduced-motion preferences disable the scrolling animation. Data Saver and slow 2G connections retain the photograph instead of automatically fetching the hero video.
 - The supplied listing gives two slightly different lot sizes; the page uses its structured value of 7,498 sq ft. Verify current listing facts and availability before publication.
 
-Any static host can publish the **`site/` directory**. The host should serve MP4 files with byte-range support and enable compression for HTML/CSS/JS. Configure cache lifetimes and asset versioning together; the current assets have readable, unversioned filenames. Add the final public URL and an absolute social preview image URL to the metadata once a domain is chosen. Publishing repository code does not itself deploy the website.
+The requested host is **GPT Sites**, with the custom domain **`vila4.l4g.ro`** and DNS managed at **Romarg**. Canonical and social-preview metadata use this intended domain. Hosting and DNS have not yet been configured. See [DEPLOYMENT.md](DEPLOYMENT.md) for the deployment handoff.
+
+Publish the **`site/` directory** as static files. The host should serve MP4 files with byte-range support and enable compression for HTML/CSS/JS. Configure cache lifetimes and asset versioning together; the current assets have readable, unversioned filenames. Publishing repository code does not itself deploy the website.
 
 ## Property film — Higgsfield Seedance 2.5 only
 
