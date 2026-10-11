@@ -1,1 +1,1 @@
-Estimate the requested 20-second 1080p Seedance 2.5 film after the API reported insufficient credits on 2026-10-11. Do not generate media.
+Estimate the requested 20-second 1080p Seedance 2.5 film after the API reported insufficient credits on 2026-10-11. Read numeric cost fields in the API response, including nested fields. Do not generate media.

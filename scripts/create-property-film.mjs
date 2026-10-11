@@ -39,6 +39,19 @@ try {
     for (const field of ['credits', 'usd']) {
       if (['string', 'number'].includes(typeof result[field]) && Number.isFinite(Number(result[field]))) estimate[field] = result[field];
     }
+    estimate.responseFields = Object.keys(result);
+    estimate.numericValues = {};
+    function collectNumbers(value, path = '', depth = 0) {
+      if (depth > 6 || value === null) return;
+      if (typeof value === 'number' || (typeof value === 'string' && /^\d+(\.\d+)?$/.test(value))) {
+        estimate.numericValues[path] = value;
+      } else if (typeof value === 'object') {
+        for (const [key, item] of Object.entries(value)) {
+          if (/^[a-zA-Z0-9_-]{1,60}$/.test(key)) collectNumbers(item, path ? `${path}.${key}` : key, depth + 1);
+        }
+      }
+    }
+    collectNumbers(result);
     await writeFile(`${output}/cost-estimate.json`, JSON.stringify(estimate, null, 2));
     console.log('Cost estimate checked. No generation submitted.');
     process.exit(response.ok ? 0 : 1);
