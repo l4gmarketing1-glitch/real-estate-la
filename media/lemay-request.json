@@ -3,7 +3,7 @@
   "references": ["front.jpg", "living.jpg", "kitchen.jpg", "twilight.jpg"],
   "input": {
     "duration": 20,
-    "resolution": "1080p",
+    "resolution": "720p",
     "aspect_ratio": "16:9",
     "generate_audio": true,
     "bitrate_mode": "high",
