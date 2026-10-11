@@ -1,92 +1,97 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#18231e" />
-    <meta name="description" content="Explore a Los Angeles property, its features, and private tour information." />
-    <title>Los Angeles Residence | Property Preview</title>
-    <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css" />
-    <script type="module" src="./app.js"></script>
-  </head>
-  <body>
-    <a class="skip-link" href="#main">Skip to content</a>
-    <div class="demo-banner" id="demo-banner">Concept listing · Illustrative details and imagery</div>
-    <header class="site-header">
-      <a class="brand" href="#top" aria-label="The residence, back to top">
-        <span class="brand-mark" aria-hidden="true">A<span>—</span></span>
-        <span class="brand-name">ATELIER<br /><small>LOS ANGELES</small></span>
-      </a>
-      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-links"><span></span><span></span></button>
-      <nav id="nav-links" class="nav-links" aria-label="Primary navigation">
-        <a href="#residence">The residence</a>
-        <a href="#details">Details</a>
-        <a href="#neighborhood">Neighborhood</a>
-        <a class="nav-cta" href="#inquire">Inquire <span aria-hidden="true">↗</span></a>
-      </nav>
-    </header>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f6f3eb" />
+  <meta name="description" content="Discover 14127 Lemay Street, a 1927 Craftsman cottage in Van Nuys. 3 bedrooms, 2 bathrooms, 1,981 sq ft. Offered at $1,175,000." />
+  <meta property="og:title" content="14127 Lemay — A little history. A new beginning." />
+  <meta property="og:description" content="A thoughtfully renewed 1927 Craftsman cottage in Van Nuys, Los Angeles. 3 beds · 2 baths · $1,175,000." />
+  <meta property="og:type" content="website" />
+  <title>14127 Lemay — A Storybook Home in Los Angeles</title>
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
+  <link rel="preload" href="./assets/fonts/cormorant.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="./assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="module" src="./app.js"></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SingleFamilyResidence","name":"14127 Lemay Street","address":{"@type":"PostalAddress","streetAddress":"14127 Lemay Street","addressLocality":"Van Nuys","addressRegion":"CA","postalCode":"91405","addressCountry":"US"},"numberOfBedrooms":3,"numberOfBathroomsTotal":2,"floorSize":{"@type":"QuantitativeValue","value":1981,"unitCode":"FTK"},"yearBuilt":1927,"description":"A 1927 Craftsman cottage with Tudor Revival details, restored hardwood floors, renovated kitchen and detached two-car garage."}</script>
+</head>
+<body>
+  <a href="#residence" class="skip-link">Skip to property details</a>
+  <header class="header" id="header">
+    <a class="wordmark" href="#home" aria-label="14127 Lemay home">14127<span>LEMAY</span><i aria-hidden="true"><svg class="spark-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 2v28M2 16h28M6 6l20 20M6 26 26 6"/></svg></i></a>
+    <nav class="nav" id="navigation" aria-label="Main navigation">
+      <a href="#residence">The residence</a><a href="#gallery">The spaces</a><a href="#location">The neighborhood</a>
+    </nav>
+    <a class="header-tour listing-link" href="https://www.redfin.com/CA/Van-Nuys/14127-Lemay-St-91405/home/4617182" target="_blank" rel="noopener noreferrer">Schedule a tour <span aria-hidden="true"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a>
+    <button class="menu-toggle" aria-controls="navigation" aria-expanded="false" aria-label="Open menu"><span></span><span></span></button>
+  </header>
 
-    <main id="main">
-      <section class="hero" id="top" aria-labelledby="hero-heading">
-        <div class="hero-copy">
-          <div class="hero-copy-inner">
-            <p class="eyebrow light">An address above it all <span class="eyebrow-line"></span> Los Angeles</p>
-            <h1 id="hero-heading" data-field="headline">A quieter kind of Los Angeles.</h1>
-            <p class="hero-intro" data-field="description"></p>
-            <div class="hero-actions">
-              <a class="button button-light" href="#residence">Explore the residence <span aria-hidden="true">↗</span></a>
-              <span class="hero-note">Private presentation</span>
-            </div>
-          </div>
-          <div class="hero-bottom"><span data-field="neighborhood"></span><span>01 / 03</span></div>
+  <main>
+    <section class="hero-scroll" id="home" aria-label="Welcome to 14127 Lemay">
+      <div class="hero-stage">
+        <picture class="hero-picture"><source media="(max-width: 600px)" srcset="./assets/images/front-1024.webp" /><img id="hero-poster" src="./assets/images/front-1024.webp" alt="The 1927 cottage at 14127 Lemay Street, framed by its mature shade tree" width="1024" height="683" fetchpriority="high" /></picture>
+        <video id="hero-video" class="hero-video" muted playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+        <div class="hero-shade"></div>
+        <div class="hero-content">
+          <div class="hero-eyebrow"><span class="live-dot"></span> A LOS ANGELES ORIGINAL <span class="hero-year">EST. 1927</span></div>
+          <h1>A little history.<br /><em>A new beginning.</em></h1>
+          <p>A storybook Craftsman cottage.<br />Thoughtfully renewed for the way you live today.</p>
+          <a href="#residence" class="hero-explore">Step inside <span aria-hidden="true"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 5 19 19M5 19h14V5"/></svg></span></a>
         </div>
-        <div class="hero-art" role="img" aria-label="Architectural illustration of a modern hillside residence at sunset">
-          <img src="./assets/exterior.svg" alt="Illustration of a modern Los Angeles residence at sunset" />
-          <span class="image-caption">An elevated point of view <span>↗</span></span>
-        </div>
-      </section>
+        <div class="hero-chapter" aria-hidden="true"><span>ALMOST A CENTURY OF CHARACTER</span><p>Some things<br /><em>only get better.</em></p></div>
+        <div class="hero-bottom"><div><span>14127 LEMAY STREET</span><small>Van Nuys, California 91405</small></div><button class="film-trigger" data-film hidden><span class="play-icon" aria-hidden="true"><svg class="play-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg></span><span>Watch the story<small>A 20-second introduction</small></span></button><a href="#residence" class="scroll-cue"><span>SCROLL TO DISCOVER</span><i aria-hidden="true"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 3v18m-6-6 6 6 6-6"/></svg></i></a></div>
+        <div class="scroll-track" aria-hidden="true"><span id="scroll-progress"></span></div>
+      </div>
+    </section>
 
-      <section class="quick-facts" aria-label="Property facts">
-        <div class="fact"><span class="fact-label">Offered at</span><strong data-field="price"></strong></div>
-        <div class="fact"><span class="fact-label">Bedrooms</span><strong data-field="beds"></strong></div>
-        <div class="fact"><span class="fact-label">Bathrooms</span><strong data-field="baths"></strong></div>
-        <div class="fact"><span class="fact-label">Interior</span><strong><span data-field="area"></span> <small data-field="areaUnit"></small></strong></div>
-      </section>
+    <section class="facts" aria-label="Property at a glance">
+      <div class="price-fact"><span class="eyebrow">OFFERED AT</span><strong>$1,175,000</strong><span class="sale-tag"><i></i> For sale</span></div>
+      <div><strong>3</strong><span>BEDROOMS</span></div><div><strong>2</strong><span>BATHROOMS</span></div><div><strong>1,981</strong><span>INTERIOR SQ FT</span></div><div><strong>1927</strong><span>YEAR BUILT</span></div>
+    </section>
 
-      <section class="intro section-shell" id="residence">
-        <div class="section-kicker"><span class="kicker-dot"></span> THE RESIDENCE <span>01 / 04</span></div>
-        <div class="intro-grid">
-          <h2>Beautifully considered.<br /><em>Effortlessly lived in.</em></h2>
-          <div class="intro-aside"><p>From the first light of morning to the city glow after dark, every space is designed to feel connected to its surroundings.</p><a class="text-link" href="#details">Discover the details <span aria-hidden="true">↗</span></a></div>
-        </div>
-        <div class="editorial-image"><img src="./assets/interior.svg" alt="Illustration of an airy living room opening toward the hills" loading="lazy" /><span>Living, reimagined for the California light.</span></div>
-      </section>
+    <section class="residence section-shell" id="residence">
+      <div class="section-top"><span class="eyebrow"><i class="little-star" aria-hidden="true"><svg class="spark-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 2v28M2 16h28M6 6l20 20M6 26 26 6"/></svg></i> THE RESIDENCE</span><span class="section-index">01 — A HOME WITH A STORY</span></div>
+      <div class="residence-intro"><h2 data-reveal>Character you can feel.<br /><em>Comfort you can settle into.</em></h2><p data-reveal>A curved gable. An arched window. The warmth of original hardwood floors. At 14127 Lemay, the details of 1920s Los Angeles meet a beautifully refreshed everyday life.</p></div>
+      <div class="residence-layout">
+        <div class="photo-composition" data-tilt data-reveal><div class="photo-mat"><img src="./assets/images/living-1024.webp" srcset="./assets/images/living-640.webp 640w, ./assets/images/living-1024.webp 1024w" sizes="(max-width: 760px) 90vw, 55vw" alt="Original hardwood flooring, arched window and fireplace in the living room" width="1024" height="681" loading="lazy" /></div><div class="heritage-stamp"><span>LOS ANGELES</span><strong>1927</strong><span>ORIGINAL CHARACTER</span></div><span class="photo-caption">The kind of details you don't build twice.</span></div>
+        <div class="residence-copy" data-reveal><span class="eyebrow muted">A COTTAGE. A CLASSIC. YOUR NEXT CHAPTER.</span><h3>Good bones.<br /><em>A fresh perspective.</em></h3><p>This three-bedroom, two-bath Craftsman cottage brings Tudor Revival touches and storybook curb appeal to a generous lot in Van Nuys.</p><p>A historic HPOZ contributing home, it retains its distinctive craftsmanship while welcoming a new roof, new plumbing, a brand-new kitchen and fresh paint inside and out.</p><a class="text-link" href="#renewed">Explore what's new <span aria-hidden="true"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a></div>
+      </div>
+    </section>
 
-      <section class="details section-shell" id="details">
-        <div class="section-kicker"><span class="kicker-dot"></span> THE DETAILS <span>02 / 04</span></div>
-        <div class="details-grid">
-          <div><p class="overline">AT A GLANCE</p><h2>The art of<br /><em>feeling at home.</em></h2><p class="details-lead">Spaces made for a life that moves between quiet moments and lively company.</p></div>
-          <div class="highlights" id="highlights"></div>
-        </div>
-        <div class="gallery-grid">
-          <figure><img src="./assets/pool.svg" alt="Illustration of a terrace and pool overlooking the hills" loading="lazy" /><figcaption>The outside, brought in.</figcaption></figure>
-          <figure><img src="./assets/interior.svg" alt="Illustration of the living space" loading="lazy" /><figcaption>Space for every moment.</figcaption></figure>
-        </div>
-      </section>
+    <div class="word-ribbon" aria-hidden="true"><div><span>ORIGINAL SOUL</span><i><svg class="spark-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 2v28M2 16h28M6 6l20 20M6 26 26 6"/></svg></i><span>A FRESH CHAPTER</span><i><svg class="spark-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 2v28M2 16h28M6 6l20 20M6 26 26 6"/></svg></i><span>CALIFORNIA LIVING</span><i><svg class="spark-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 2v28M2 16h28M6 6l20 20M6 26 26 6"/></svg></i><span>ORIGINAL SOUL</span><i><svg class="spark-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 2v28M2 16h28M6 6l20 20M6 26 26 6"/></svg></i><span>A FRESH CHAPTER</span><i><svg class="spark-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 2v28M2 16h28M6 6l20 20M6 26 26 6"/></svg></i><span>CALIFORNIA LIVING</span><i><svg class="spark-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 2v28M2 16h28M6 6l20 20M6 26 26 6"/></svg></i></div></div>
 
-      <section class="neighborhood" id="neighborhood">
-        <div class="neighborhood-copy"><div class="section-kicker"><span class="kicker-dot"></span> THE NEIGHBORHOOD <span>03 / 04</span></div><p class="overline">LOS ANGELES LIVING</p><h2>Close to everything.<br /><em>Away from it all.</em></h2><p>Discover a more relaxed pace above the energy of Los Angeles, with dining, culture, and city life within reach.</p><div class="location-line"><span class="location-icon" aria-hidden="true">✦</span><span data-field="city"></span></div></div>
-        <div class="neighborhood-art" aria-hidden="true"><div class="sun"></div><div class="hill hill-back"></div><div class="hill hill-front"></div><div class="street"></div><span>LOS ANGELES<br />CALIFORNIA</span></div>
-      </section>
+    <section class="gallery-section section-shell" id="gallery">
+      <div class="section-top"><span class="eyebrow"><i class="little-star" aria-hidden="true"><svg class="spark-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 2v28M2 16h28M6 6l20 20M6 26 26 6"/></svg></i> EXPLORE THE SPACES</span><span class="section-index">02 — ROOM TO MAKE IT YOURS</span></div>
+      <div class="gallery-heading"><h2 data-reveal>Every room.<br /><em>A little possibility.</em></h2><p data-reveal>Find your morning light, your favorite corner,<br />and the space for whatever comes next.</p></div>
+      <div class="gallery-controls"><div class="gallery-filters" role="group" aria-label="Filter property photographs"><button class="active" data-filter="All" aria-pressed="true">All spaces</button><button data-filter="Living" aria-pressed="false">Living</button><button data-filter="Kitchen" aria-pressed="false">Kitchen</button><button data-filter="Rooms" aria-pressed="false">Rooms</button><button data-filter="Outdoors" aria-pressed="false">Outdoors</button></div><span id="gallery-count" class="gallery-count" aria-live="polite">26 photographs</span></div>
+      <div class="gallery-grid" id="gallery-grid"></div>
+      <div class="gallery-footer"><span>Real photographs. An authentic first look.</span><button class="button button-outline" id="view-all">View all 26 photographs <span aria-hidden="true"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></button></div>
+      <noscript><p>Property photographs require JavaScript for the interactive gallery. <a href="https://www.redfin.com/CA/Van-Nuys/14127-Lemay-St-91405/home/4617182">View the complete listing on Redfin.</a></p></noscript>
+    </section>
 
-      <section class="inquire section-shell" id="inquire">
-        <div class="section-kicker"><span class="kicker-dot"></span> PRIVATE INQUIRIES <span>04 / 04</span></div>
-        <div class="inquire-grid"><div><p class="overline">LET'S CONNECT</p><h2>Make room for<br /><em>what's next.</em></h2><p>Request more information or arrange a private conversation about this home.</p><div class="advisor"><span class="advisor-icon" aria-hidden="true">A—</span><span><strong data-field="agentName"></strong><small>Property inquiries</small></span></div></div>
-          <form id="inquiry-form" class="inquiry-form"><label for="inquiry-name">Your name</label><input id="inquiry-name" name="name" type="text" autocomplete="name" required placeholder="Full name" /><label for="inquiry-email">Email address</label><input id="inquiry-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" /><label for="inquiry-message">Your message</label><textarea id="inquiry-message" name="message" rows="3" required placeholder="I'd love to know more about this property..."></textarea><button class="button button-dark" type="submit">Send inquiry <span aria-hidden="true">↗</span></button><p class="form-note" id="form-note" role="status">Your email app will open with your message.</p></form>
-        </div>
-      </section>
-    </main>
-    <footer><div class="footer-top"><span class="footer-brand">ATELIER <span>—</span> LOS ANGELES</span><a href="#top">Back to top ↑</a></div><div class="footer-bottom"><span data-field="address"></span><span id="footer-disclaimer">Concept listing. All details and illustrations are placeholders.</span><span>© <span id="year"></span></span></div></footer>
-  </body>
+    <section class="renewed" id="renewed">
+      <div class="renewed-image"><img src="./assets/images/kitchen-1024.webp" srcset="./assets/images/kitchen-640.webp 640w, ./assets/images/kitchen-1024.webp 1024w" sizes="(max-width: 760px) 100vw, 50vw" alt="The newly renovated kitchen with green cabinetry and white countertops" width="1024" height="682" loading="lazy" /><span class="image-label">FRESHLY RENOVATED · READY FOR EVERYDAY</span></div>
+      <div class="renewed-copy"><span class="eyebrow">PRESERVED WHERE IT MATTERS. RENEWED WHERE IT COUNTS.</span><h2 data-reveal>The charm stays.<br /><em>The next chapter begins.</em></h2><p>Thoughtful updates make this historic home ready for modern life, with the major improvements already in place.</p><div class="upgrade-list"><div><span>01</span><h3>New roof & plumbing</h3><p>Major systems, thoughtfully upgraded.</p></div><div><span>02</span><h3>A brand-new kitchen</h3><p>New appliances and a fresh place to gather.</p></div><div><span>03</span><h3>Original hardwood, restored</h3><p>The craftsmanship and warmth of the original home.</p></div><div><span>04</span><h3>More room for possibility</h3><p>A renovated basement and detached two-car garage.</p></div></div></div>
+    </section>
+
+    <section class="film-section section-shell" id="film" hidden>
+      <div class="section-top"><span class="eyebrow"><i class="little-star" aria-hidden="true"><svg class="spark-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 2v28M2 16h28M6 6l20 20M6 26 26 6"/></svg></i> THE SHORT FILM</span><span class="section-index">20 SECONDS — A NEW PERSPECTIVE</span></div>
+      <button class="film-cover" data-film aria-label="Play the 20-second property film"><img src="./assets/images/twilight-1024.webp" alt="14127 Lemay at twilight" width="1024" height="686" loading="lazy" /><span class="film-cover-shade"></span><span class="film-cover-copy"><span class="eyebrow">14127 LEMAY · THE FILM</span><strong>Picture your<br /><em>next chapter.</em></strong><span class="film-play-circle" aria-hidden="true"><svg class="play-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg></span><span class="film-caption">PLAY THE 20-SECOND FILM</span></span></button>
+    </section>
+
+    <section class="location section-shell" id="location">
+      <div class="section-top"><span class="eyebrow"><i class="little-star" aria-hidden="true"><svg class="spark-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 2v28M2 16h28M6 6l20 20M6 26 26 6"/></svg></i> THE NEIGHBORHOOD</span><span class="section-index">03 — YOUR CORNER OF LOS ANGELES</span></div>
+      <div class="location-grid"><div class="location-copy"><span class="eyebrow muted">VAN NUYS · SAN FERNANDO VALLEY</span><h2 data-reveal>A little breathing room.<br /><em>A lot to come home to.</em></h2><p>Set behind a sweeping front lawn and a mature shade tree, this home offers its own sense of calm, with dining, parks and shopping nearby and convenient access across the San Fernando Valley.</p><div class="lot-facts"><div><strong>7,498</strong><span>SQ FT LOT</span></div><div><strong>2-car</strong><span>DETACHED GARAGE</span></div></div><a class="text-link" href="https://www.google.com/maps/search/?api=1&query=14127+Lemay+St+Van+Nuys+CA+91405" target="_blank" rel="noopener noreferrer">Find your way here <span aria-hidden="true"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a></div><div class="location-visual" data-tilt data-reveal><img src="./assets/images/facade-1024.webp" srcset="./assets/images/facade-640.webp 640w, ./assets/images/facade-1024.webp 1024w" sizes="(max-width: 760px) 90vw, 45vw" alt="The side of the cottage and its distinctive angled bay" width="1024" height="683" loading="lazy" /><div class="address-card"><span class="address-pin" aria-hidden="true"><svg class="pin-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M19 10c0 6-7 11-7 11S5 16 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span><strong>14127 Lemay Street</strong><small>Van Nuys, CA 91405</small></span><span aria-hidden="true"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></div></div></div>
+    </section>
+
+    <section class="contact-section" id="visit"><div class="contact-image"><img src="./assets/images/twilight-1024.webp" srcset="./assets/images/twilight-640.webp 640w, ./assets/images/twilight-1024.webp 1024w" sizes="100vw" alt="The lights of the cottage at dusk" width="1024" height="686" loading="lazy" /></div><div class="contact-content"><span class="eyebrow">YOUR NEXT CHAPTER STARTS WITH A VISIT</span><h2>Come for the character.<br /><em>Stay for the possibilities.</em></h2><p>14127 Lemay Street · Van Nuys, Los Angeles</p><a class="button button-cream listing-link" href="https://www.redfin.com/CA/Van-Nuys/14127-Lemay-St-91405/home/4617182" target="_blank" rel="noopener noreferrer">Schedule a private tour <span aria-hidden="true"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a><small>View availability and contact the listing team on Redfin.</small></div></section>
+  </main>
+
+  <footer><div class="footer-top"><a class="wordmark" href="#home">14127<span>LEMAY</span><i aria-hidden="true"><svg class="spark-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 2v28M2 16h28M6 6l20 20M6 26 26 6"/></svg></i></a><span>A LOS ANGELES ORIGINAL. YOUR NEXT CHAPTER.</span><a href="#home" class="back-top">Back to top <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 21V3m-6 6 6-6 6 6"/></svg></a></div><div class="footer-bottom"><p>Property information supplied by the listing. Buyer to verify measurements, condition and HPOZ requirements. Photography supplied for this presentation. The property film is AI-assisted and based on listing photographs.</p><a href="https://www.redfin.com/CA/Van-Nuys/14127-Lemay-St-91405/home/4617182" target="_blank" rel="noopener noreferrer">View original listing <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a></div></footer>
+  <div class="mobile-bar"><span><strong>$1,175,000</strong><small>3 beds · 2 baths · 1,981 sq ft</small></span><a href="https://www.redfin.com/CA/Van-Nuys/14127-Lemay-St-91405/home/4617182" target="_blank" rel="noopener noreferrer">Schedule a tour <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a></div>
+
+  <dialog id="photo-dialog" class="photo-dialog" aria-label="Property photo gallery"><div class="dialog-top"><span>14127 LEMAY <small id="photo-counter"></small></span><button class="icon-button dialog-close" aria-label="Close photo gallery"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div><div class="lightbox-stage"><button class="icon-button photo-prev" aria-label="Previous photograph"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M21 12H3m6-6-6 6 6 6"/></svg></button><figure><img id="lightbox-image" src="./assets/images/front-1024.webp" alt="" /><figcaption id="photo-caption"></figcaption></figure><button class="icon-button photo-next" aria-label="Next photograph"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 12h18m-6-6 6 6-6 6"/></svg></button></div><div class="photo-thumbnails" id="photo-thumbnails" aria-label="Choose a photograph"></div></dialog>
+  <dialog id="film-dialog" class="film-dialog" aria-label="14127 Lemay property film"><div class="dialog-top"><span>14127 LEMAY · THE FILM</span><button class="icon-button dialog-close" aria-label="Close film"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div><video id="property-film" controls playsinline preload="none" poster="./assets/images/twilight-1024.webp"></video><p>AI-assisted property presentation, created with Seedance 2.5 from the listing photographs. Consult the photographs and a personal tour for the home's exact condition.</p></dialog>
+</body>
 </html>

@@ -5,12 +5,17 @@
   "type": "module",
   "scripts": {
     "generate": "node src/generate.js",
-    "test": "node --test"
+    "test": "node --test",
+    "test:site": "playwright test",
+    "dev": "node scripts/serve.mjs"
   },
   "dependencies": {
     "@higgsfield/client": "^0.2.6"
   },
   "engines": {
     "node": ">=20"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.0"
   }
 }

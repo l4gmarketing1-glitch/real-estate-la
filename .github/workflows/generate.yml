@@ -41,7 +41,7 @@ jobs:
       - name: Generate
         env:
           HF_CREDENTIALS: ${{ secrets.HF_CREDENTIALS }}
-        run: npm run generate -- request.local.json > generation-result.json
+        run: node src/generate.js request.local.json > generation-result.json
       - name: Save result
         if: always()
         uses: actions/upload-artifact@v4

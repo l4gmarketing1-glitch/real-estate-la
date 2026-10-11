@@ -19,7 +19,7 @@ async function main() {
 }
 
 main().catch((error) => {
-  if (error.response?.status === 404) {
+  if ((error.statusCode ?? error.response?.status) === 404) {
     console.error(`Higgsfield returned HTTP 404 for endpoint "${selectedEndpoint}". Check its current endpoint ID and whether your API account has access to that model.`);
   } else {
     console.error(error.message);
