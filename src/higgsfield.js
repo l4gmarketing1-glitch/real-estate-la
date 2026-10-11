@@ -5,7 +5,10 @@ export function createGenerator({ credentials = process.env.HF_CREDENTIALS, clie
     throw new Error('HF_CREDENTIALS is required (KEY_ID:KEY_SECRET).');
   }
 
-  const sdk = client ?? createHiggsfieldClient({ credentials });
+  const sdk = client ?? createHiggsfieldClient({
+    credentials,
+    maxPollTime: 30 * 60 * 1000,
+  });
 
   return async function generate({ endpoint, input, withPolling = true }) {
     if (typeof endpoint !== 'string' || !endpoint.trim()) {

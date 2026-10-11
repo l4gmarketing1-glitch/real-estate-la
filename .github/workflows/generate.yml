@@ -1,0 +1,50 @@
+name: Generate with Higgsfield
+
+on:
+  workflow_dispatch:
+    inputs:
+      endpoint:
+        description: 'Higgsfield model endpoint (for example, flux-pro/kontext/max/text-to-image)'
+        required: true
+        type: string
+      input_json:
+        description: 'JSON object with the parameters required by that model'
+        required: true
+        default: '{"prompt":"Modern Los Angeles home at sunset","aspect_ratio":"9:16"}'
+        type: string
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Prepare model request
+        env:
+          HF_ENDPOINT: ${{ inputs.endpoint }}
+          HF_INPUT_JSON: ${{ inputs.input_json }}
+        run: |
+          node --input-type=module -e '
+            import { writeFile } from "node:fs/promises";
+            const input = JSON.parse(process.env.HF_INPUT_JSON);
+            if (!input || typeof input !== "object" || Array.isArray(input)) {
+              throw new Error("input_json must be a JSON object");
+            }
+            await writeFile("request.local.json", JSON.stringify({ endpoint: process.env.HF_ENDPOINT, input }));
+          '
+      - name: Generate
+        env:
+          HF_CREDENTIALS: ${{ secrets.HF_CREDENTIALS }}
+        run: npm run generate -- request.local.json > generation-result.json
+      - name: Save result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: higgsfield-result
+          path: generation-result.json
+          if-no-files-found: ignore
