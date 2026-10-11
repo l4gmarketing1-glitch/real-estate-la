@@ -1,4 +1,5 @@
 {
+  "inspectRequestId": "2f41ea70-d1af-48fd-b8f4-11717ad1fe29",
   "endpoint": "bytedance/seedance-2.5/reference-to-video",
   "references": ["front.jpg", "living.jpg", "kitchen.jpg", "twilight.jpg"],
   "input": {

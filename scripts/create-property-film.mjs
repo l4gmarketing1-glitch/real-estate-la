@@ -8,6 +8,21 @@ const plan = JSON.parse(await readFile('media/lemay-request.json', 'utf8'));
 const identity = { provider: 'Higgsfield', model: 'Seedance 2.5', endpoint: plan.endpoint };
 try {
   if (!process.env.HF_CREDENTIALS?.trim()) throw new Error('missing_credentials');
+  if (plan.inspectRequestId) {
+    const response = await fetch(`https://api.higgsfield.ai/requests/${encodeURIComponent(plan.inspectRequestId)}/status`, {
+      headers: { Authorization: `Key ${process.env.HF_CREDENTIALS.trim()}` },
+      signal: AbortSignal.timeout(30000),
+    });
+    const result = await response.json();
+    const diagnostic = { ...identity, state: result.status ?? 'unknown', httpStatus: response.status, requestId: plan.inspectRequestId, error: result.error ?? result.error_message ?? result.detail ?? result.message ?? null, responseFields: Object.keys(result) };
+    let safe = JSON.stringify(diagnostic, null, 2);
+    for (const part of [process.env.HF_CREDENTIALS.trim(), ...process.env.HF_CREDENTIALS.trim().split(':')]) {
+      if (part) safe = safe.replaceAll(part, '[redacted]');
+    }
+    await writeFile(statusFile, safe);
+    console.log('Existing request checked; no new generation submitted.');
+    process.exit(0);
+  }
   if (!process.env.GITHUB_REPOSITORY || !process.env.GITHUB_SHA) throw new Error('missing_source_commit');
   const root = `https://raw.githubusercontent.com/${process.env.GITHUB_REPOSITORY}/${process.env.GITHUB_SHA}/media/references`;
   const image_urls = plan.references.map((name) => `${root}/${encodeURIComponent(name)}`);
@@ -29,7 +44,7 @@ try {
   console.log('Submitting 20-second Seedance 2.5 property film with four property references.');
   const result = await client.subscribe(plan.endpoint, { input: { ...plan.input, image_urls }, withPolling: true });
   if (result.status !== 'completed' || !result.video?.url) {
-    await writeFile(statusFile, JSON.stringify({ ...identity, state: result.status ?? 'unknown', requestId: result.request_id }, null, 2));
+    await writeFile(statusFile, JSON.stringify({ ...identity, state: result.status ?? 'unknown', requestId: result.request_id, error: result.error ?? result.error_message ?? result.detail ?? result.message ?? null }, null, 2));
     process.exitCode = 1;
   } else {
     const mediaUrl = new URL(result.video.url);

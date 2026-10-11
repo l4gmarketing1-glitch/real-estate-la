@@ -30,6 +30,7 @@ jobs:
         run: node scripts/create-property-film.mjs
       - name: Optimize film and scrolling video
         run: |
+          if [ ! -f /tmp/lemay-source.mp4 ]; then exit 0; fi
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg
           ffmpeg -y -i /tmp/lemay-source.mp4 -t 20 -vf 'scale=1280:-2,fps=24' -c:v libx264 -preset slow -crf 23 -c:a aac -b:a 96k -movflags +faststart -map_metadata -1 site/assets/media/film.mp4
