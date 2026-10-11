@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: [media/lemay-request.json]
+    paths: [media/film-generation-trigger.txt]
 
 permissions:
   contents: write
