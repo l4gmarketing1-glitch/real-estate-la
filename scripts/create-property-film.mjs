@@ -26,6 +26,23 @@ try {
   if (!process.env.GITHUB_REPOSITORY || !process.env.GITHUB_SHA) throw new Error('missing_source_commit');
   const root = `https://raw.githubusercontent.com/${process.env.GITHUB_REPOSITORY}/${process.env.GITHUB_SHA}/media/references`;
   const image_urls = plan.references.map((name) => `${root}/${encodeURIComponent(name)}`);
+  if (process.argv.includes('--estimate')) {
+    const response = await fetch(`https://api.higgsfield.ai/estimate/${plan.endpoint}`, {
+      method: 'POST',
+      headers: { Authorization: `Key ${process.env.HF_CREDENTIALS.trim()}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...plan.input, image_urls }),
+      signal: AbortSignal.timeout(30000),
+    });
+    const result = await response.json();
+    // Save only documented cost fields; never persist request headers or SDK objects.
+    const estimate = { ...identity, httpStatus: response.status, duration: plan.input.duration, resolution: plan.input.resolution };
+    for (const field of ['credits', 'usd']) {
+      if (['string', 'number'].includes(typeof result[field]) && Number.isFinite(Number(result[field]))) estimate[field] = result[field];
+    }
+    await writeFile(`${output}/cost-estimate.json`, JSON.stringify(estimate, null, 2));
+    console.log('Cost estimate checked. No generation submitted.');
+    process.exit(response.ok ? 0 : 1);
+  }
   // Check that the model can retrieve every public reference before making a billable request.
   for (const url of image_urls) {
     const response = await fetch(url, { signal: AbortSignal.timeout(30000) });
