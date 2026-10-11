@@ -1,0 +1,13 @@
+{
+  "provider": "Higgsfield",
+  "model": "Seedance 2.5",
+  "endpoint": "bytedance/seedance-2.5/reference-to-video",
+  "httpStatus": 200,
+  "duration": 20,
+  "resolution": "1080p",
+  "responseFields": [
+    "type",
+    "pricing_description"
+  ],
+  "numericValues": {}
+}
