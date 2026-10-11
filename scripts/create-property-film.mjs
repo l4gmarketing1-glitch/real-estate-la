@@ -52,6 +52,15 @@ try {
       }
     }
     collectNumbers(result);
+    for (const field of ['type', 'pricing_description']) {
+      if (typeof result[field] === 'string') {
+        let value = result[field].slice(0, 12000);
+        for (const part of [process.env.HF_CREDENTIALS.trim(), ...process.env.HF_CREDENTIALS.trim().split(':')]) {
+          if (part) value = value.replaceAll(part, '[redacted]');
+        }
+        estimate[field] = value;
+      }
+    }
     await writeFile(`${output}/cost-estimate.json`, JSON.stringify(estimate, null, 2));
     console.log('Cost estimate checked. No generation submitted.');
     process.exit(response.ok ? 0 : 1);
