@@ -53,7 +53,7 @@ The reviewed Seedance film and both hero clips are included in `site/assets/medi
 
 ### Rebuild the edit without spending API credits
 
-Run `python3 scripts/edit-property-film.py` with FFmpeg/libass and DejaVu fonts installed. The script reuses `media/source/seedance-property-20s.mp4`, the supplied listing photographs, and the source soundtrack. It performs no API calls. `media/film-30s-storyboard.json` records all 15 shots, their two-second durations, and the property captions. The primary result is `site/assets/media/film-30s.mp4`; `film.mp4` is a compatibility copy for previously shared links.
+Run `python3 scripts/edit-property-film.py` with FFmpeg/libass and DejaVu fonts installed. The script reuses `media/source/seedance-property-20s.mp4`, the supplied listing photographs, and the source soundtrack. It performs no API calls. `media/film-30s-storyboard.json` records all 15 shots, their two-second durations, and the property captions. The primary result is `site/assets/media/film-30s-motion.mp4`; `film-30s.mp4` and `film.mp4` are compatibility copies for previously shared links. Every photograph has a gentle animated zoom and pan; the original Seedance shots retain their camera movement. Compact translucent green caption strips leave more of each property image visible.
 
 The root `index.html` redirects to `site/` for hosting configurations that publish the entire repository. This prevents the project README from appearing instead of the property page. `.nojekyll` ensures GitHub Pages can serve the static files directly. Hosts configured to publish `site/` continue to serve it directly.
 

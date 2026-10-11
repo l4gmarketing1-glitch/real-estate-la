@@ -8,7 +8,7 @@ The public repository root previously displayed the project README because it ha
 
 - Main URL: `https://vila4.l4g.ro/`
 - Direct page URL: `https://vila4.l4g.ro/site/`
-- Current film: `https://vila4.l4g.ro/site/assets/media/film-30s.mp4`
+- Current film: `https://vila4.l4g.ro/site/assets/media/film-30s-motion.mp4`
 - Publish changes by pushing to `main`, then verify the GitHub **pages build and deployment** workflow and **Test** workflow.
 
 ## Static assets and video

@@ -7,7 +7,7 @@ import json, shutil, subprocess, tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'media/source/seedance-property-20s.mp4'
-OUTPUT = ROOT / 'site/assets/media/film-30s.mp4'
+OUTPUT = ROOT / 'site/assets/media/film-30s-motion.mp4'
 FPS = 24
 # Source clips are kept inside their actual scene boundaries.
 SHOTS = [
@@ -46,8 +46,8 @@ def timestamp(seconds):
 
 with tempfile.TemporaryDirectory(prefix='lemay-edit-') as directory:
     tmp = Path(directory)
-    # For photos, retain the complete frame over a softly blurred background.
-    # Only the background is enlarged/cropped; the actual property photo stays intact.
+    # Gentle digital camera movement on every photograph, without generating
+    # or inventing property details. Alternate a slow push-in and pull-back.
     for index, (source, start, duration) in enumerate(SHOTS):
         target = tmp / f'{index:02d}.mp4'
         inputs = ['-ss', str(start), '-i', str(SOURCE)] if source == 'video' else ['-loop', '1', '-framerate', str(FPS), '-i', str(ROOT / f'site/assets/images/{source}-1024.webp')]
@@ -55,7 +55,9 @@ with tempfile.TemporaryDirectory(prefix='lemay-edit-') as directory:
             filters = 'scale=1280:720,setsar=1,fps=24,setpts=N/(24*TB),format=yuv420p'
             filter_args = ['-vf', filters]
         else:
-            filters = '[0:v]split=2[bg][fg];[bg]scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,boxblur=25:3,eq=brightness=-0.12[blur];[fg]scale=1280:720:force_original_aspect_ratio=decrease[photo];[blur][photo]overlay=(W-w)/2:(H-h)/2,setsar=1,fps=24,setpts=N/(24*TB),format=yuv420p[out]'
+            zoom = '1.02+0.035*on/47' if index % 2 else '1.055-0.035*on/47'
+            pan = '0.4+0.2*on/47' if index % 2 else '0.6-0.2*on/47'
+            filters = '[0:v]split=2[bg][fg];[bg]scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,boxblur=25:3,eq=brightness=-0.12[blur];[fg]scale=1280:720:force_original_aspect_ratio=decrease[photo];[blur][photo]overlay=(W-w)/2:(H-h)/2,scale=2560:1440,setsar=1' + f",zoompan=z='{zoom}':x='(iw-iw/zoom)*({pan})':y='(ih-ih/zoom)/2':d=48:s=1280x720:fps=24,setpts=N/(24*TB),format=yuv420p[out]"
             filter_args = ['-filter_complex', filters, '-map', '[out]']
         run('ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', *inputs, *filter_args, '-frames:v', int(duration * FPS), '-an', '-r', '24', '-fps_mode', 'cfr', '-c:v', 'libx264', '-bf', '0', '-video_track_timescale', '24000', '-preset', 'fast', '-crf', '19', '-threads', '2', target)
         info=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_entries','stream=nb_frames,duration,start_time,r_frame_rate','-of','json',str(target)]))
@@ -79,40 +81,41 @@ WrapStyle: 2
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Header,DejaVu Sans,24,&H00F4F6F3,&H00FFFFFF,&H80000000,&H00000000,0,0,0,0,100,100,1,0,1,0,0,7,48,48,26,1
-Style: Title,DejaVu Serif,38,&H00F4F6F3,&H00FFFFFF,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,7,48,48,510,1
-Style: Detail,DejaVu Sans,23,&H00D5E5DB,&H00FFFFFF,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,7,48,48,570,1
-Style: Facts,DejaVu Sans,25,&H00F4F6F3,&H00FFFFFF,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,2,48,48,32,1
-Style: Label,DejaVu Sans,17,&H00D5E5DB,&H00FFFFFF,&H80000000,&H00000000,0,0,0,0,100,100,1,0,1,0,0,7,48,48,64,1
+Style: Header,DejaVu Sans,20,&H00F4F6F3,&H00FFFFFF,&H80000000,&H00000000,0,0,0,0,100,100,1,0,1,0,0,7,40,40,12,1
+Style: Title,DejaVu Serif,28,&H00F4F6F3,&H00FFFFFF,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,7,40,40,601,1
+Style: Detail,DejaVu Sans,20,&H00D5E5DB,&H00FFFFFF,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,7,40,40,640,1
+Style: Facts,DejaVu Sans,18,&H00F4F6F3,&H00FFFFFF,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,2,40,40,10,1
+Style: Label,DejaVu Sans,14,&H00D5E5DB,&H00FFFFFF,&H80000000,&H00000000,0,0,0,0,100,100,1,0,1,0,0,7,40,40,42,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 Dialogue: 0,0:00:00.00,0:00:30.00,Header,,0,0,0,,14127 LEMAY STREET
 Dialogue: 0,0:00:00.00,0:00:30.00,Label,,0,0,0,,VAN NUYS, CA 91405
-Dialogue: 0,0:00:00.00,0:00:30.00,Header,,0,0,0,,{\\an9\\pos(1232,26)\\fs30}$1,175,000
-Dialogue: 0,0:00:00.00,0:00:30.00,Label,,0,0,0,,{\\an9\\pos(1232,68)}FOR SALE | APPROX. $593 / SQ FT
+Dialogue: 0,0:00:00.00,0:00:30.00,Header,,0,0,0,,{\\an9\\pos(1240,10)\\fs24}$1,175,000
+Dialogue: 0,0:00:00.00,0:00:30.00,Label,,0,0,0,,{\\an9\\pos(1240,43)}FOR SALE | APPROX. $593 / SQ FT
 Dialogue: 0,0:00:00.00,0:00:30.00,Facts,,0,0,0,,3 BEDROOMS     |     2 BATHROOMS     |     1,981 SQ FT     |     BUILT 1927
 '''
     for index, (title, detail) in enumerate(CARDS):
         start, end = timestamp(index * 2), timestamp((index + 1) * 2)
         # Long final line receives a smaller explicit size instead of overflowing.
-        size = '{\\fs34}' if len(title) > 45 else ''
+        size = '{\\fs26}' if len(title) > 45 else ''
         ass += f'Dialogue: 1,{start},{end},Title,,0,0,0,,{{\\fad(120,100)}}{size}{title}\n'
         ass += f'Dialogue: 1,{start},{end},Detail,,0,0,0,,{{\\fad(120,100)}}{detail}\n'
     (tmp / 'titles.ass').write_text(ass)
     run('ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', tmp / 'joined.mp4', '-i', tmp / 'music.wav',
-        '-vf', f'drawbox=x=0:y=0:w=iw:h=106:color=0x142c23@0.73:t=fill,drawbox=x=0:y=488:w=iw:h=232:color=0x142c23@0.94:t=fill,drawbox=x=48:y=630:w=1184:h=1:color=0xc4d3b5@0.65:t=fill,ass={tmp / "titles.ass"}',
+        '-vf', f'drawbox=x=0:y=0:w=iw:h=68:color=0x142c23@0.62:t=fill,drawbox=x=0:y=592:w=iw:h=128:color=0x142c23@0.82:t=fill,drawbox=x=40:y=675:w=1200:h=1:color=0xc4d3b5@0.65:t=fill,ass={tmp / "titles.ass"}',
         '-map', '0:v', '-map', '1:a', '-c:v', 'libx264', '-preset', 'fast', '-crf', '21', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', '-threads', '2', OUTPUT)
     # Captions/timing are committed separately so the full content remains reviewable.
-    (ROOT / 'media/film-30s-storyboard.json').write_text(json.dumps({'duration':30, 'fps':FPS, 'shots':[{'source':s,'sourceStart':st,'duration':d} for s,st,d in SHOTS], 'cards':[{'start':i*2,'end':(i+1)*2,'title':t,'detail':d} for i,(t,d) in enumerate(CARDS)], 'source':'Existing Seedance 2.5 footage and supplied listing photographs; no new generation'}, indent=2) + '\n')
+    (ROOT / 'media/film-30s-storyboard.json').write_text(json.dumps({'duration':30, 'fps':FPS, 'shots':[{'source':s,'sourceStart':st,'duration':d,'motion':'Native Seedance camera motion' if s=='video' else 'Gentle animated zoom and pan'} for s,st,d in SHOTS], 'cards':[{'start':i*2,'end':(i+1)*2,'title':t,'detail':d} for i,(t,d) in enumerate(CARDS)], 'source':'Existing Seedance 2.5 footage and supplied listing photographs; no new generation'}, indent=2) + '\n')
 probe=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_entries','stream=codec_type,duration,nb_frames','-of','json',str(OUTPUT)]))
 video=next(s for s in probe['streams'] if s['codec_type']=='video')
 audio=next(s for s in probe['streams'] if s['codec_type']=='audio')
 assert int(video['nb_frames']) == 720 and abs(float(video['duration'])-30) < 0.001, video
 assert abs(float(audio['duration'])-30) < 0.05, audio
 shutil.copyfile(OUTPUT, OUTPUT.with_name('film.mp4'))
+shutil.copyfile(OUTPUT, OUTPUT.with_name('film-30s.mp4'))
 manifest_file=OUTPUT.with_name('manifest.json')
 manifest=json.loads(manifest_file.read_text())
-manifest.update(ready=True, duration=30, film='film-30s.mp4', shotCount=15, secondsPerShot=2, editing='Existing Seedance 2.5 footage and original listing photographs with English property details')
+manifest.update(ready=True, duration=30, film='film-30s-motion.mp4', shotCount=15, secondsPerShot=2, editing='Existing Seedance 2.5 footage and animated listing photographs, with compact English property captions')
 manifest_file.write_text(json.dumps(manifest,indent=2)+'\n')
 print(f'Created and validated {OUTPUT}: 15 shots, 720 frames, 30 seconds with audio', flush=True)

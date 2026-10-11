@@ -5,77 +5,92 @@
     {
       "source": "video",
       "sourceStart": 0,
-      "duration": 2
+      "duration": 2,
+      "motion": "Native Seedance camera motion"
     },
     {
       "source": "facade",
       "sourceStart": 0,
-      "duration": 2
+      "duration": 2,
+      "motion": "Gentle animated zoom and pan"
     },
     {
       "source": "video",
       "sourceStart": 5.1,
-      "duration": 2
+      "duration": 2,
+      "motion": "Native Seedance camera motion"
     },
     {
       "source": "dining",
       "sourceStart": 0,
-      "duration": 2
+      "duration": 2,
+      "motion": "Gentle animated zoom and pan"
     },
     {
       "source": "video",
       "sourceStart": 10,
-      "duration": 2
+      "duration": 2,
+      "motion": "Native Seedance camera motion"
     },
     {
       "source": "bedroom",
       "sourceStart": 0,
-      "duration": 2
+      "duration": 2,
+      "motion": "Gentle animated zoom and pan"
     },
     {
       "source": "bedroom-two",
       "sourceStart": 0,
-      "duration": 2
+      "duration": 2,
+      "motion": "Gentle animated zoom and pan"
     },
     {
       "source": "bedroom-three",
       "sourceStart": 0,
-      "duration": 2
+      "duration": 2,
+      "motion": "Gentle animated zoom and pan"
     },
     {
       "source": "bath",
       "sourceStart": 0,
-      "duration": 2
+      "duration": 2,
+      "motion": "Gentle animated zoom and pan"
     },
     {
       "source": "bath-two",
       "sourceStart": 0,
-      "duration": 2
+      "duration": 2,
+      "motion": "Gentle animated zoom and pan"
     },
     {
       "source": "sunroom-wide",
       "sourceStart": 0,
-      "duration": 2
+      "duration": 2,
+      "motion": "Gentle animated zoom and pan"
     },
     {
       "source": "basement",
       "sourceStart": 0,
-      "duration": 2
+      "duration": 2,
+      "motion": "Gentle animated zoom and pan"
     },
     {
       "source": "garden",
       "sourceStart": 0,
-      "duration": 2
+      "duration": 2,
+      "motion": "Gentle animated zoom and pan"
     },
     {
       "source": "garage",
       "sourceStart": 0,
-      "duration": 2
+      "duration": 2,
+      "motion": "Gentle animated zoom and pan"
     },
     {
       "source": "video",
       "sourceStart": 17,
-      "duration": 2
+      "duration": 2,
+      "motion": "Native Seedance camera motion"
     }
   ],
   "cards": [
