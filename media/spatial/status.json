@@ -4,8 +4,21 @@
   "requests": [
     {
       "batch": 0,
+      "state": "downloaded",
+      "requestId": "a047174d-2a61-4109-912c-8b567d20996a",
+      "checkedAt": "2026-10-12T07:34:38.985Z"
+    },
+    {
+      "batch": 1,
       "state": "in_progress",
-      "requestId": "a047174d-2a61-4109-912c-8b567d20996a"
+      "requestId": "797c935c-f2e5-44bc-bf0e-4e4b05080636",
+      "checkedAt": "2026-10-12T07:42:44.045Z"
+    },
+    {
+      "batch": 2,
+      "state": "in_progress",
+      "requestId": "f5c2a982-b6e4-4c30-b92d-6f7cc0ff0d09",
+      "checkedAt": "2026-10-12T07:42:45.701Z"
     }
   ],
   "estimates": [
@@ -31,5 +44,6 @@
   "estimatedTotalUSD": 6.168,
   "reservedUSD": 6.9081600000000005,
   "httpStatus": null,
-  "checkedAt": "2026-10-12T07:30:15.471Z"
+  "checkedAt": "2026-10-12T07:30:15.471Z",
+  "error": "poll_timeout_do_not_resubmit"
 }
