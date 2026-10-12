@@ -1,0 +1,27 @@
+{
+  "budgetUSD": 7,
+  "mode": "estimate",
+  "requests": [],
+  "estimates": [
+    {
+      "duration": 10,
+      "resolution": "480p",
+      "ratePerSecond": 0.2056,
+      "estimatedUSD": 2.056
+    },
+    {
+      "duration": 10,
+      "resolution": "480p",
+      "ratePerSecond": 0.2056,
+      "estimatedUSD": 2.056
+    },
+    {
+      "duration": 10,
+      "resolution": "480p",
+      "ratePerSecond": 0.2056,
+      "estimatedUSD": 2.056
+    }
+  ],
+  "estimatedTotalUSD": 6.168,
+  "reservedUSD": 6.9081600000000005
+}
