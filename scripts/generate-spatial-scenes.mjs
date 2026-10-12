@@ -7,8 +7,13 @@ await mkdir(directory, { recursive: true });
 const plan = JSON.parse(await readFile(`${directory}/plan.json`, 'utf8'));
 const credentials = process.env.HF_CREDENTIALS?.trim();
 const headers = { Authorization: `Key ${credentials}`, 'Content-Type': 'application/json' };
-const journal = plan.mode === 'inspect' ? JSON.parse(await readFile(`${directory}/status.json`, 'utf8')) : { budgetUSD: 7, mode: plan.mode, requests: [] };
-const save = () => writeFile(`${directory}/status.json`, JSON.stringify(journal, null, 2));
+const journal = (plan.mode === 'inspect' || plan.resume) ? JSON.parse(await readFile(`${directory}/status.json`, 'utf8')) : { budgetUSD: 7, mode: plan.mode, requests: [] };
+let saving = Promise.resolve();
+const save = () => {
+  const snapshot = JSON.stringify(journal, null, 2);
+  saving = saving.then(() => writeFile(`${directory}/status.json`, snapshot));
+  return saving;
+};
 try {
   if (!credentials || !process.env.GITHUB_SHA) throw Error('missing_configuration');
   if (plan.mode === 'inspect') {
@@ -50,28 +55,40 @@ try {
   if(plan.mode !== 'generate') {console.log('Estimate only; no paid requests.');process.exit(0);}
   // Verify references before making any billable request.
   for(const input of inputs) for(const url of input.image_urls){const r=await fetch(url);if(!r.ok)throw Error('reference_unavailable');await r.arrayBuffer();}
-  for(let index=0;index<inputs.length;index++) {
-    const client=createHiggsfieldClient({credentials,maxRetries:0,headers:{'Idempotency-Key':`lemay-spatial-${process.env.GITHUB_SHA}-${index}`}});
-    const record={batch:index,state:'submitting'};journal.requests.push(record);await save();
-    let result=await client.subscribe(endpoint,{input:inputs[index],withPolling:false});
-    record.requestId=result.request_id;record.state=result.status;await save();
-    if(!result.request_id) throw Error('missing_request_id');
-    const deadline=Date.now()+25*60*1000;
+  delete journal.error;
+  if(new Set(journal.requests.map(r=>r.batch)).size !== journal.requests.length || journal.requests.some(r=>!Number.isInteger(r.batch)||r.batch<0||r.batch>=3||!r.requestId)) throw Error('invalid_saved_requests');
+  const outcomes = await Promise.allSettled(inputs.map(async (input,index) => {
+    let record = journal.requests.find(r => r.batch === index);
+    let result;
+    if (record) {
+      // Reuse a saved request ID. Never submit a replacement for a queued job.
+      result = { request_id: record.requestId, status: 'queued' };
+    } else {
+      const client=createHiggsfieldClient({credentials,maxRetries:0,headers:{'Idempotency-Key':`lemay-spatial-${process.env.GITHUB_SHA}-${index}`}});
+      record={batch:index,state:'submitting'};journal.requests.push(record);await save();
+      result=await client.subscribe(endpoint,{input,withPolling:false});
+      record.requestId=result.request_id;record.state=result.status;await save();
+      if(!result.request_id) throw Error('missing_request_id');
+    }
+    const deadline=Date.now()+10*60*1000;
     while(!['completed','failed','nsfw'].includes(result.status)){
       if(Date.now()>deadline)throw Error('poll_timeout_do_not_resubmit');
       await new Promise(r=>setTimeout(r,10000));
-      const response=await fetch(`https://api.higgsfield.ai/requests/${encodeURIComponent(result.request_id)}/status`,{headers,signal:AbortSignal.timeout(30000)});
+      const response=await fetch(`https://api.higgsfield.ai/requests/${encodeURIComponent(record.requestId)}/status`,{headers,signal:AbortSignal.timeout(30000)});
       if(response.status>=500)continue;
       if(!response.ok)throw Error(`poll_http_${response.status}`);
       result=await response.json();
+      record.state=result.status;record.checkedAt=new Date().toISOString();await save();
     }
-    record.state=result.status;await save();
     if(result.status!=='completed'||!result.video?.url)throw Error('generation_not_completed');
     const url=new URL(result.video.url);if(url.protocol!=='https:')throw Error('invalid_video_url');
     const video=await fetch(url,{signal:AbortSignal.timeout(120000)});if(!video.ok)throw Error('download_failed');
     await writeFile(`${directory}/batch-${index}.mp4`,Buffer.from(await video.arrayBuffer()));
     record.state='downloaded';await save();console.log(`Batch ${index+1} downloaded.`);
-  }
+  }));
+  const failure=outcomes.find(x=>x.status==='rejected');
+  if(failure)throw failure.reason;
+
 }catch(error){
   // Never log SDK error objects or credentials.
   journal.error=/^[a-z_]+(?:_\d+)?$/.test(error.message)?error.message:'provider_request_failed';

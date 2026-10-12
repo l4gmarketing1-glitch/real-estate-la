@@ -4,7 +4,7 @@
   "requests": [
     {
       "batch": 0,
-      "state": "queued",
+      "state": "in_progress",
       "requestId": "a047174d-2a61-4109-912c-8b567d20996a"
     }
   ],
@@ -30,6 +30,6 @@
   ],
   "estimatedTotalUSD": 6.168,
   "reservedUSD": 6.9081600000000005,
-  "error": "poll_timeout_do_not_resubmit",
-  "httpStatus": null
+  "httpStatus": null,
+  "checkedAt": "2026-10-12T07:30:15.471Z"
 }
