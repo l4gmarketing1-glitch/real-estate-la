@@ -5,7 +5,7 @@ import { statSync } from 'node:fs';
 const fixture = fileURLToPath(new URL('./fixtures/scroll-test.mp4', import.meta.url));
 async function mockPreparedFilm(page) {
   await page.route('**/assets/media/manifest.json', (route) => route.fulfill({
-    json: { ready: true, duration: 30, film: 'film-30s-smooth.mp4', hero: 'hero.mp4', mobileHero: 'hero-mobile.mp4' },
+    json: { ready: true, duration: 30, film: 'film-30s-spatial.mp4', hero: 'hero.mp4', mobileHero: 'hero-mobile.mp4' },
   }));
   await page.route('**/assets/media/*.mp4', (route) => route.fulfill({
     path: fixture,
@@ -88,7 +88,7 @@ test('the published film plays the real 30-second edit through its final shot', 
   await page.goto('/');
   await page.locator('.hero-bottom [data-film]').click();
   const video = page.locator('#property-film');
-  await expect(video).toHaveAttribute('src', './assets/media/film-30s-smooth.mp4');
+  await expect(video).toHaveAttribute('src', './assets/media/film-30s-spatial.mp4');
   await expect.poll(() => video.evaluate((element) => element.duration)).toBe(30);
   await video.evaluate((element) => { element.pause(); element.currentTime = 29; });
   await expect.poll(() => video.evaluate((element) => !element.seeking && element.readyState >= 2)).toBe(true);

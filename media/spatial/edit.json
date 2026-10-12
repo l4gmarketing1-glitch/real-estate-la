@@ -12,7 +12,8 @@
   "bedroom": {
     "file": "media/spatial/batch-0.mp4",
     "start": 5.3,
-    "reviewed": true
+    "reviewed": true,
+    "reverse": true
   },
   "bedroom-two": {
     "file": "media/spatial/batch-0.mp4",
@@ -21,37 +22,37 @@
   },
   "bedroom-three": {
     "file": "media/spatial/batch-1.mp4",
-    "start": 0.25,
-    "reviewed": false
+    "start": 0.125,
+    "reviewed": true
   },
   "bath": {
     "file": "media/spatial/batch-1.mp4",
-    "start": 2.75,
-    "reviewed": false
+    "start": 2.55,
+    "reviewed": true
   },
   "bath-two": {
     "file": "media/spatial/batch-1.mp4",
-    "start": 5.25,
-    "reviewed": false
+    "start": 5.2,
+    "reviewed": true
   },
   "sunroom-wide": {
     "file": "media/spatial/batch-1.mp4",
-    "start": 7.75,
-    "reviewed": false
+    "start": 7.8,
+    "reviewed": true
   },
   "basement": {
     "file": "media/spatial/batch-2.mp4",
-    "start": 0.667,
-    "reviewed": false
+    "start": 0.4,
+    "reviewed": true
   },
   "garden": {
     "file": "media/spatial/batch-2.mp4",
-    "start": 4.0,
-    "reviewed": false
+    "start": 3.55,
+    "reviewed": true
   },
   "garage": {
     "file": "media/spatial/batch-2.mp4",
-    "start": 7.333,
-    "reviewed": false
+    "start": 7.1,
+    "reviewed": true
   }
 }

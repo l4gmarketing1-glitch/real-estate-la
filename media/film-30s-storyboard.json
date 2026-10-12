@@ -12,7 +12,7 @@
       "source": "facade",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Subpixel horizontal glide with smooth start and stop"
+      "motion": "Native Seedance camera motion"
     },
     {
       "source": "video",
@@ -24,7 +24,7 @@
       "source": "dining",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Subpixel horizontal glide with smooth start and stop"
+      "motion": "Native Seedance camera motion"
     },
     {
       "source": "video",
@@ -36,55 +36,55 @@
       "source": "bedroom",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Subpixel horizontal glide with smooth start and stop"
+      "motion": "Native Seedance camera motion"
     },
     {
       "source": "bedroom-two",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Subpixel horizontal glide with smooth start and stop"
+      "motion": "Native Seedance camera motion"
     },
     {
       "source": "bedroom-three",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Subpixel horizontal glide with smooth start and stop"
+      "motion": "Native Seedance camera motion"
     },
     {
       "source": "bath",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Subpixel horizontal glide with smooth start and stop"
+      "motion": "Native Seedance camera motion"
     },
     {
       "source": "bath-two",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Subpixel horizontal glide with smooth start and stop"
+      "motion": "Native Seedance camera motion"
     },
     {
       "source": "sunroom-wide",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Subpixel horizontal glide with smooth start and stop"
+      "motion": "Native Seedance camera motion"
     },
     {
       "source": "basement",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Subpixel horizontal glide with smooth start and stop"
+      "motion": "Native Seedance camera motion"
     },
     {
       "source": "garden",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Subpixel horizontal glide with smooth start and stop"
+      "motion": "Native Seedance camera motion"
     },
     {
       "source": "garage",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Subpixel horizontal glide with smooth start and stop"
+      "motion": "Native Seedance camera motion"
     },
     {
       "source": "video",
@@ -185,5 +185,5 @@
       "detail": "Near dining, parks & shopping | San Fernando Valley"
     }
   ],
-  "source": "Existing Seedance 2.5 footage and supplied listing photographs; no new generation"
+  "source": "Original and newly generated Seedance 2.5 footage; offline edit only"
 }

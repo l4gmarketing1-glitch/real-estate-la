@@ -65,8 +65,9 @@ with tempfile.TemporaryDirectory(prefix='lemay-edit-') as directory:
         if source == 'video' or SPATIAL:
             clip = SOURCE if source == 'video' else ROOT / SPATIAL_SHOTS[source]['file']
             clip_start = start if source == 'video' else SPATIAL_SHOTS[source]['start']
+            direction = 'trim=duration=2,reverse,' if SPATIAL and source != 'video' and SPATIAL_SHOTS[source].get('reverse') else ''
             run('ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-ss', clip_start, '-i', clip,
-                '-vf', f'scale=1280:720,setsar=1,fps={FPS},setpts=N/({FPS}*TB),format=yuv420p', *encode)
+                '-vf', direction + f'scale=1280:720,setsar=1,fps={FPS},setpts=N/({FPS}*TB),format=yuv420p', *encode)
         else:
             photo = Image.open(ROOT / f'site/assets/images/{source}-1024.webp').convert('RGB')
             canvas = ImageOps.fit(photo, (1280,720), method=Image.Resampling.LANCZOS).filter(ImageFilter.GaussianBlur(25))

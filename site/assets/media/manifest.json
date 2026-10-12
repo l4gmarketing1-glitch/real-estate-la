@@ -1,12 +1,12 @@
 {
   "ready": true,
   "duration": 30,
-  "film": "film-30s-smooth.mp4",
+  "film": "film-30s-spatial.mp4",
   "hero": "hero.mp4",
   "mobileHero": "hero-mobile.mp4",
   "provider": "Higgsfield",
   "model": "Seedance 2.5",
   "shotCount": 15,
   "secondsPerShot": 2,
-  "editing": "Existing Seedance 2.5 footage and animated listing photographs, with compact English property captions"
+  "editing": "Seedance 2.5 spatial camera scenes with compact English property captions"
 }
