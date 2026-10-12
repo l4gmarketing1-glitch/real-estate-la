@@ -1,5 +1,5 @@
 {
-  "mode": "generate",
+  "mode": "inspect",
   "batches": [
     {
       "shots": [
@@ -58,5 +58,6 @@
       ]
     }
   ],
-  "resume": true
+  "resume": true,
+  "waitForExisting": true
 }

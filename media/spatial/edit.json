@@ -1,23 +1,23 @@
 {
   "facade": {
     "file": "media/spatial/batch-0.mp4",
-    "start": 0.25,
-    "reviewed": false
+    "start": 0.2,
+    "reviewed": true
   },
   "dining": {
     "file": "media/spatial/batch-0.mp4",
-    "start": 2.75,
-    "reviewed": false
+    "start": 2.7,
+    "reviewed": true
   },
   "bedroom": {
     "file": "media/spatial/batch-0.mp4",
-    "start": 5.25,
-    "reviewed": false
+    "start": 5.3,
+    "reviewed": true
   },
   "bedroom-two": {
     "file": "media/spatial/batch-0.mp4",
-    "start": 7.75,
-    "reviewed": false
+    "start": 7.95,
+    "reviewed": true
   },
   "bedroom-three": {
     "file": "media/spatial/batch-1.mp4",

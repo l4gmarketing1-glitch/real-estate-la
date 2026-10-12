@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, access } from 'node:fs/promises';
 import { createHiggsfieldClient } from '@higgsfield/client/v2';
 import { estimateSpatialCost, checkSpatialBudget } from '../src/spatial-budget.js';
 const endpoint = 'bytedance/seedance-2.5/reference-to-video';
@@ -18,7 +18,12 @@ try {
   if (!credentials || !process.env.GITHUB_SHA) throw Error('missing_configuration');
   if (plan.mode === 'inspect') {
     delete journal.error;
+    const inspectDeadline = Date.now() + (plan.waitForExisting ? 30 * 60 * 1000 : 0);
+    do {
     for (const record of journal.requests) {
+      if (record.state === 'downloaded') {
+        try { await access(`${directory}/batch-${record.batch}.mp4`); continue; } catch {}
+      }
       const response = await fetch(`https://api.higgsfield.ai/requests/${encodeURIComponent(record.requestId)}/status`, { headers, signal: AbortSignal.timeout(30000) });
       if (!response.ok) throw Error(`inspect_http_${response.status}`);
       const result = await response.json();
@@ -34,6 +39,9 @@ try {
     }
     journal.checkedAt = new Date().toISOString();
     await save();
+    if (journal.requests.every(r => ['downloaded', 'failed', 'nsfw'].includes(r.state)) || Date.now() >= inspectDeadline) break;
+    await new Promise(r => setTimeout(r,10000));
+    } while (true);
     console.log('Checked existing requests only; no generation submitted.');
     process.exit(0);
   }
