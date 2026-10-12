@@ -1,0 +1,35 @@
+{
+  "budgetUSD": 7,
+  "mode": "generate",
+  "requests": [
+    {
+      "batch": 0,
+      "state": "queued",
+      "requestId": "a047174d-2a61-4109-912c-8b567d20996a"
+    }
+  ],
+  "estimates": [
+    {
+      "duration": 10,
+      "resolution": "480p",
+      "ratePerSecond": 0.2056,
+      "estimatedUSD": 2.056
+    },
+    {
+      "duration": 10,
+      "resolution": "480p",
+      "ratePerSecond": 0.2056,
+      "estimatedUSD": 2.056
+    },
+    {
+      "duration": 10,
+      "resolution": "480p",
+      "ratePerSecond": 0.2056,
+      "estimatedUSD": 2.056
+    }
+  ],
+  "estimatedTotalUSD": 6.168,
+  "reservedUSD": 6.9081600000000005,
+  "error": "poll_timeout_do_not_resubmit",
+  "httpStatus": null
+}
