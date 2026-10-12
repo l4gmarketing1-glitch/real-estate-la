@@ -1,6 +1,6 @@
 {
   "duration": 30,
-  "fps": 24,
+  "fps": 48,
   "shots": [
     {
       "source": "video",
@@ -12,7 +12,7 @@
       "source": "facade",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Gentle animated zoom and pan"
+      "motion": "Subpixel horizontal glide with smooth start and stop"
     },
     {
       "source": "video",
@@ -24,7 +24,7 @@
       "source": "dining",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Gentle animated zoom and pan"
+      "motion": "Subpixel horizontal glide with smooth start and stop"
     },
     {
       "source": "video",
@@ -36,55 +36,55 @@
       "source": "bedroom",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Gentle animated zoom and pan"
+      "motion": "Subpixel horizontal glide with smooth start and stop"
     },
     {
       "source": "bedroom-two",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Gentle animated zoom and pan"
+      "motion": "Subpixel horizontal glide with smooth start and stop"
     },
     {
       "source": "bedroom-three",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Gentle animated zoom and pan"
+      "motion": "Subpixel horizontal glide with smooth start and stop"
     },
     {
       "source": "bath",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Gentle animated zoom and pan"
+      "motion": "Subpixel horizontal glide with smooth start and stop"
     },
     {
       "source": "bath-two",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Gentle animated zoom and pan"
+      "motion": "Subpixel horizontal glide with smooth start and stop"
     },
     {
       "source": "sunroom-wide",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Gentle animated zoom and pan"
+      "motion": "Subpixel horizontal glide with smooth start and stop"
     },
     {
       "source": "basement",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Gentle animated zoom and pan"
+      "motion": "Subpixel horizontal glide with smooth start and stop"
     },
     {
       "source": "garden",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Gentle animated zoom and pan"
+      "motion": "Subpixel horizontal glide with smooth start and stop"
     },
     {
       "source": "garage",
       "sourceStart": 0,
       "duration": 2,
-      "motion": "Gentle animated zoom and pan"
+      "motion": "Subpixel horizontal glide with smooth start and stop"
     },
     {
       "source": "video",

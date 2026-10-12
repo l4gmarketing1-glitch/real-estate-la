@@ -32,7 +32,7 @@ jobs:
         run: |
           if [ ! -f /tmp/lemay-source.mp4 ]; then exit 0; fi
           sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core python3-pil
           mkdir -p media/source
           ffmpeg -y -i /tmp/lemay-source.mp4 -t 20 -vf 'scale=1280:-2,fps=24' -c:v libx264 -preset slow -crf 23 -c:a aac -b:a 96k -movflags +faststart -map_metadata -1 media/source/seedance-property-20s.mp4
           ffmpeg -y -i /tmp/lemay-source.mp4 -t 4.5 -an -vf 'scale=1280:-2,fps=24' -c:v libx264 -preset slow -crf 27 -g 6 -keyint_min 6 -sc_threshold 0 -movflags +faststart -map_metadata -1 site/assets/media/hero.mp4
