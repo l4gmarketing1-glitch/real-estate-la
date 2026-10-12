@@ -1,5 +1,5 @@
 {
-  "mode": "estimate",
+  "mode": "generate",
   "batches": [
     {
       "shots": [
