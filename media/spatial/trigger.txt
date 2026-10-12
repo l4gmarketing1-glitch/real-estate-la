@@ -1,1 +1,1 @@
-Generate the three approved Seedance batches once; API estimate $6.168, reserved $6.90816, maximum budget $7.
+Inspect existing first request after polling timeout; no new paid generation.

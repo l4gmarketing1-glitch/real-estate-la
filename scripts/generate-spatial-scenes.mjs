@@ -1,15 +1,37 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createHiggsfieldClient } from '@higgsfield/client/v2';
+import { estimateSpatialCost, checkSpatialBudget } from '../src/spatial-budget.js';
 const endpoint = 'bytedance/seedance-2.5/reference-to-video';
 const directory = 'media/spatial';
 await mkdir(directory, { recursive: true });
 const plan = JSON.parse(await readFile(`${directory}/plan.json`, 'utf8'));
 const credentials = process.env.HF_CREDENTIALS?.trim();
 const headers = { Authorization: `Key ${credentials}`, 'Content-Type': 'application/json' };
-const journal = { budgetUSD: 7, mode: plan.mode, requests: [] };
+const journal = plan.mode === 'inspect' ? JSON.parse(await readFile(`${directory}/status.json`, 'utf8')) : { budgetUSD: 7, mode: plan.mode, requests: [] };
 const save = () => writeFile(`${directory}/status.json`, JSON.stringify(journal, null, 2));
 try {
   if (!credentials || !process.env.GITHUB_SHA) throw Error('missing_configuration');
+  if (plan.mode === 'inspect') {
+    delete journal.error;
+    for (const record of journal.requests) {
+      const response = await fetch(`https://api.higgsfield.ai/requests/${encodeURIComponent(record.requestId)}/status`, { headers, signal: AbortSignal.timeout(30000) });
+      if (!response.ok) throw Error(`inspect_http_${response.status}`);
+      const result = await response.json();
+      record.state = result.status;
+      if (result.status === 'completed' && result.video?.url) {
+        const url = new URL(result.video.url);
+        if (url.protocol !== 'https:') throw Error('invalid_video_url');
+        const video = await fetch(url, {signal: AbortSignal.timeout(120000)});
+        if (!video.ok) throw Error('download_failed');
+        await writeFile(`${directory}/batch-${record.batch}.mp4`, Buffer.from(await video.arrayBuffer()));
+        record.state = 'downloaded';
+      }
+    }
+    journal.checkedAt = new Date().toISOString();
+    await save();
+    console.log('Checked existing requests only; no generation submitted.');
+    process.exit(0);
+  }
   if (plan.mode === 'generate' && process.env.GITHUB_RUN_ATTEMPT !== '1') throw Error('rerun_blocked_to_prevent_duplicate_charges');
   const inputs = plan.batches.map(batch => ({duration:10,resolution:'480p',aspect_ratio:'16:9',generate_audio:false,bitrate_mode:'high',
     image_urls:batch.shots.map(shot => `https://raw.githubusercontent.com/${process.env.GITHUB_REPOSITORY}/${process.env.GITHUB_SHA}/site/assets/images/${shot.photo}-1024.webp`),
@@ -20,15 +42,9 @@ try {
     if(!response.ok) throw Error(`estimate_http_${response.status}`);
     const estimate=await response.json();
     const description=estimate.pricing_description || '';
-    // Accept only the known per-second, no-video-input 480p rate; fail closed otherwise.
-    const match=description.match(/\$(\d+(?:\.\d+)?) per second of generated video at 480p/);
-    if(!match) throw Error('unrecognized_pricing_requires_review');
-    const rate=Number(match[1]);
-    if(!Number.isFinite(rate)||rate<=0) throw Error('invalid_pricing');
-    journal.estimates.push({duration:10,resolution:'480p',ratePerSecond:rate,estimatedUSD:rate*10});
+    journal.estimates.push(estimateSpatialCost(description));
   }
-  journal.estimatedTotalUSD=journal.estimates.reduce((sum,x)=>sum+x.estimatedUSD,0);
-  journal.reservedUSD=journal.estimatedTotalUSD*1.12;
+  Object.assign(journal, checkSpatialBudget(journal.estimates));
   await save();
   if(journal.reservedUSD>7) throw Error('budget_exceeded');
   if(plan.mode !== 'generate') {console.log('Estimate only; no paid requests.');process.exit(0);}
