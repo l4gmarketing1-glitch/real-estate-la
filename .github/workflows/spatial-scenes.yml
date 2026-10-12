@@ -1,0 +1,35 @@
+name: Seedance spatial property scenes
+on:
+  push:
+    branches: [main]
+    paths: [media/spatial/trigger.txt]
+permissions:
+  contents: write
+concurrency:
+  group: lemay-spatial-scenes
+  cancel-in-progress: false
+jobs:
+  scenes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 85
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Estimate or generate within the approved budget
+        env:
+          HF_CREDENTIALS: ${{ secrets.HF_CREDENTIALS }}
+        run: node scripts/generate-spatial-scenes.mjs
+      - name: Preserve receipts and sources for review
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add media/spatial
+          if ! git diff --cached --quiet; then
+            git commit -m 'Save spatial scene receipts and sources'
+            git push origin "HEAD:refs/heads/generated/spatial-${GITHUB_RUN_ID}"
+          fi

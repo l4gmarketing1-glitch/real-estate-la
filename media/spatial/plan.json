@@ -1,0 +1,61 @@
+{
+  "mode": "estimate",
+  "batches": [
+    {
+      "shots": [
+        {
+          "photo": "facade",
+          "motion": "Truck gently left along the exterior facade with real parallax"
+        },
+        {
+          "photo": "dining",
+          "motion": "Dolly slowly backward from the dining space"
+        },
+        {
+          "photo": "bedroom",
+          "motion": "Dolly forward into the bedroom"
+        },
+        {
+          "photo": "bedroom-two",
+          "motion": "Truck gently left through the bedroom"
+        }
+      ]
+    },
+    {
+      "shots": [
+        {
+          "photo": "bedroom-three",
+          "motion": "Truck gently right through the bedroom"
+        },
+        {
+          "photo": "bath",
+          "motion": "Dolly slowly backward from the bathroom"
+        },
+        {
+          "photo": "bath-two",
+          "motion": "Dolly gently forward into the bathroom"
+        },
+        {
+          "photo": "sunroom-wide",
+          "motion": "Truck gently left along the enclosed porch"
+        }
+      ]
+    },
+    {
+      "shots": [
+        {
+          "photo": "basement",
+          "motion": "Truck gently right through the basement"
+        },
+        {
+          "photo": "garden",
+          "motion": "Dolly gently backward from the garden"
+        },
+        {
+          "photo": "garage",
+          "motion": "Dolly forward into the garage"
+        }
+      ]
+    }
+  ]
+}
