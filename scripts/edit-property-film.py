@@ -3,12 +3,16 @@
 Requires Python 3 with Pillow, FFmpeg with libass, and DejaVu fonts.
 """
 from pathlib import Path
-import json, shutil, subprocess, tempfile
+import json, shutil, subprocess, tempfile, sys
 from PIL import Image, ImageOps, ImageFilter, ImageEnhance
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'media/source/seedance-property-20s.mp4'
-OUTPUT = ROOT / 'site/assets/media/film-30s-smooth.mp4'
+SPATIAL = '--spatial' in sys.argv
+OUTPUT = ROOT / ('site/assets/media/film-30s-spatial.mp4' if SPATIAL else 'site/assets/media/film-30s-smooth.mp4')
+SPATIAL_SHOTS = json.loads((ROOT / 'media/spatial/edit.json').read_text()) if SPATIAL else {}
+if SPATIAL and not all(shot.get('reviewed') for shot in SPATIAL_SHOTS.values()):
+    raise SystemExit('Review the generated scenes and cut points in media/spatial/edit.json before rendering.')
 FPS = 48
 # Source clips are kept inside their actual scene boundaries.
 SHOTS = [
@@ -58,8 +62,10 @@ with tempfile.TemporaryDirectory(prefix='lemay-edit-') as directory:
         encode = ['-frames:v', str(frames), '-an', '-r', str(FPS), '-fps_mode', 'cfr',
                   '-c:v', 'libx264', '-bf', '0', '-video_track_timescale', '48000',
                   '-preset', 'fast', '-crf', '19', '-threads', '2', str(target)]
-        if source == 'video':
-            run('ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-ss', start, '-i', SOURCE,
+        if source == 'video' or SPATIAL:
+            clip = SOURCE if source == 'video' else ROOT / SPATIAL_SHOTS[source]['file']
+            clip_start = start if source == 'video' else SPATIAL_SHOTS[source]['start']
+            run('ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-ss', clip_start, '-i', clip,
                 '-vf', f'scale=1280:720,setsar=1,fps={FPS},setpts=N/({FPS}*TB),format=yuv420p', *encode)
         else:
             photo = Image.open(ROOT / f'site/assets/images/{source}-1024.webp').convert('RGB')
@@ -131,7 +137,7 @@ Dialogue: 0,0:00:00.00,0:00:30.00,Facts,,0,0,0,,3 BEDROOMS     |     2 BATHROOMS
         '-vf', f'drawbox=x=0:y=0:w=iw:h=68:color=0x142c23@0.62:t=fill,drawbox=x=0:y=592:w=iw:h=128:color=0x142c23@0.82:t=fill,drawbox=x=40:y=675:w=1200:h=1:color=0xc4d3b5@0.65:t=fill,ass={tmp / "titles.ass"}',
         '-map', '0:v', '-map', '1:a', '-c:v', 'libx264', '-preset', 'fast', '-crf', '21', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', '-threads', '2', OUTPUT)
     # Captions/timing are committed separately so the full content remains reviewable.
-    (ROOT / 'media/film-30s-storyboard.json').write_text(json.dumps({'duration':30, 'fps':FPS, 'shots':[{'source':s,'sourceStart':st,'duration':d,'motion':'Native Seedance camera motion' if s=='video' else 'Subpixel horizontal glide with smooth start and stop'} for s,st,d in SHOTS], 'cards':[{'start':i*2,'end':(i+1)*2,'title':t,'detail':d} for i,(t,d) in enumerate(CARDS)], 'source':'Existing Seedance 2.5 footage and supplied listing photographs; no new generation'}, indent=2) + '\n')
+    (ROOT / 'media/film-30s-storyboard.json').write_text(json.dumps({'duration':30, 'fps':FPS, 'shots':[{'source':s,'sourceStart':st,'duration':d,'motion':'Native Seedance camera motion' if s=='video' or SPATIAL else 'Subpixel horizontal glide with smooth start and stop'} for s,st,d in SHOTS], 'cards':[{'start':i*2,'end':(i+1)*2,'title':t,'detail':d} for i,(t,d) in enumerate(CARDS)], 'source':'Original and newly generated Seedance 2.5 footage; offline edit only' if SPATIAL else 'Existing Seedance 2.5 footage and supplied listing photographs; no new generation'}, indent=2) + '\n')
 probe=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_entries','stream=codec_type,duration,nb_frames','-of','json',str(OUTPUT)]))
 video=next(s for s in probe['streams'] if s['codec_type']=='video')
 audio=next(s for s in probe['streams'] if s['codec_type']=='audio')
@@ -142,6 +148,6 @@ shutil.copyfile(OUTPUT, OUTPUT.with_name('film.mp4'))
 shutil.copyfile(OUTPUT, OUTPUT.with_name('film-30s.mp4'))
 manifest_file=OUTPUT.with_name('manifest.json')
 manifest=json.loads(manifest_file.read_text())
-manifest.update(ready=True, duration=30, film='film-30s-smooth.mp4', shotCount=15, secondsPerShot=2, editing='Existing Seedance 2.5 footage and animated listing photographs, with compact English property captions')
+manifest.update(ready=True, duration=30, film=OUTPUT.name, shotCount=15, secondsPerShot=2, editing='Seedance 2.5 spatial camera scenes with compact English property captions' if SPATIAL else 'Existing Seedance 2.5 footage and animated listing photographs, with compact English property captions')
 manifest_file.write_text(json.dumps(manifest,indent=2)+'\n')
 print(f'Created and validated {OUTPUT}: 15 shots, 1440 frames, 30 seconds with audio', flush=True)
